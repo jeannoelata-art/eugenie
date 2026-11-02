@@ -80,9 +80,28 @@ const P1=["Es lässt sich nicht leugnen, dass beide Seiten gute Argumente haben.
 const P2=["Dem ist entgegenzuhalten, dass sich die Verhältnisse grundlegend gewandelt haben.","Ich räume ein, dass dieser Einwand nicht ganz von der Hand zu weisen ist.","Gleichwohl bleibt fraglich, ob sich die Maßnahme langfristig bewähren wird.","Nicht zuletzt deshalb plädiere ich für einen differenzierteren Blick."];
 const E1=[["nach wie vor","toujours, encore aujourd'hui","immer noch"],["zur Rechenschaft ziehen","demander des comptes","verantwortlich machen"],["Hand in Hand gehen","aller de pair","zusammenhängen"],["einen Beitrag leisten","apporter sa contribution","helfen"]];
 const E2=[["etwas von der Hand weisen","rejeter quelque chose","ablehnen"],["ins Feld führen","avancer (un argument)","anführen"],["der Sache auf den Grund gehen","aller au fond des choses","genau untersuchen"],["zu Buche schlagen","peser dans le bilan","Kosten verursachen"]];
+L1.push(["Die Stadtverwaltung hat angekündigt, dass die Parkgebühren im Zentrum verdoppelt werden. Während Geschäftsinhaber Umsatzeinbußen befürchten, hofft die Verwaltung auf weniger Verkehr und mehr Fahrgäste im Nahverkehr.","Welches Ziel verfolgt die Verwaltung mit der Maßnahme ?",["Mehr Einnahmen für die Geschäfte","Weniger Autoverkehr im Zentrum","Billigere Fahrkarten","Mehr Parkplätze"],1],
+["Der Professor räumte ein, dass seine ursprüngliche These nicht haltbar gewesen sei, und verwies auf neue Daten, die ein differenzierteres Bild ergäben.","Was tat der Professor ?",["Er verteidigte seine These","Er lehnte neue Daten ab","Er korrigierte seine frühere Annahme","Er trat zurück"],2],
+["Anders als angekündigt, wird die Brücke nicht im Herbst, sondern voraussichtlich erst im Frühjahr wieder geöffnet, da zusätzliche Sicherheitsprüfungen erforderlich sind.","Warum verzögert sich die Eröffnung ?",["Wegen schlechten Wetters","Wegen eines Streiks","Wegen Geldmangels","Wegen zusätzlicher Prüfungen"],3],
+["Viele Unternehmen bieten inzwischen flexible Arbeitszeiten an, weil sie sich davon eine höhere Zufriedenheit der Belegschaft versprechen, auch wenn die Organisation dadurch aufwendiger wird.","Welchen Nachteil nennt der Text ?",["Aufwendigere Organisation","Niedrigere Gehälter","Unzufriedene Kunden","Weniger Urlaub"],0]);
+L2.push(["Die Ministerin wies den Vorwurf zurück, sie habe das Parlament nicht rechtzeitig informiert, und kündigte an, die Vorgänge lückenlos aufklären zu lassen.","Wie reagiert die Ministerin auf den Vorwurf ?",["Sie gibt ihn zu","Sie weist ihn zurück und verspricht Aufklärung","Sie tritt zurück","Sie schweigt"],1],
+["Die Wirtschaftsprognose fiel deutlich pessimistischer aus als erwartet, was Analysten unter anderem auf die anhaltende Zurückhaltung der Verbraucher zurückführen.","Was nennen Analysten als einen Grund ?",["Zu hohe Investitionen","Mangel an Fachkräften","Die Kaufzurückhaltung der Verbraucher","Steigende Exporte"],2],
+["Obgleich die Kritiker dem Film mangelnde Originalität vorwarfen, begeisterte er das Publikum, nicht zuletzt dank der überzeugenden schauspielerischen Leistung.","Wie wurde der Film vom Publikum aufgenommen ?",["Mit Begeisterung","Ablehnend","Gleichgültig","Gar nicht"],0],
+["Die Verhandlungen scheiterten letztlich daran, dass keine der beiden Seiten bereit war, von ihren Kernforderungen abzurücken.","Warum scheiterten die Verhandlungen ?",["Wegen mangelnder Zeit","Wegen unklarer Rechtslage","Wegen eines Missverständnisses","Wegen mangelnder Kompromissbereitschaft"],3]);
+const RO=["Richtig","Falsch","Steht nicht im Text"];
+R1.push(["Die Zahl der Pendler ist in den letzten Jahren gestiegen, obwohl viele Firmen Homeoffice anbieten. Verkehrsplaner führen das auf steigende Mieten in den Innenstädten zurück.","Aussage : Verkehrsplaner machen hohe Mieten für mehr Pendler mitverantwortlich.",RO,0],
+["Die Studie untersuchte 500 Schüler und kam zu dem Ergebnis, dass Musikunterricht die Konzentration verbessert. Ob sich auch die Noten verbessern, blieb offen.","Aussage : Musikunterricht verbessert laut Studie die Noten.",RO,2],
+["Obwohl der Zug moderner geworden ist, beklagen Fahrgäste weiterhin häufige Verspätungen, die laut Betreiber vor allem durch Bauarbeiten entstehen.","Aussage : Der Betreiber nennt Bauarbeiten als Hauptursache der Verspätungen.",RO,0],
+["Immer mehr Kliniken setzen auf Telemedizin. Patienten sparen dadurch Wege, doch Ärzte warnen, dass nicht jede Diagnose ohne persönliche Untersuchung möglich sei.","Aussage : Alle Diagnosen lassen sich laut Ärzten per Video stellen.",RO,1]);
+R2.push(["Dass die Studie methodische Schwächen aufweise, bestreiten selbst ihre Autoren nicht; dennoch halten sie an ihren Kernaussagen fest.","Aussage : Die Autoren räumen Schwächen der Studie ein.",RO,0],
+["Entgegen anderslautenden Berichten sei das Werk keineswegs stillgelegt, sondern lediglich vorübergehend gedrosselt worden.","Aussage : Das Werk wurde endgültig geschlossen.",RO,1],
+["Inwieweit die Reform tatsächlich zu geringeren Kosten führt, lässt sich derzeit noch nicht beurteilen.","Aussage : Die Mehrheit der Bürger unterstützt die Reform.",RO,2],
+["Während die Befürworter auf die wirtschaftlichen Vorteile verweisen, warnen Umweltverbände vor irreversiblen Schäden für die Region.","Aussage : Umweltverbände sehen keine Risiken für die Region.",RO,1]);
+W1.push(["Schreiben Sie einen Beschwerdebrief an eine Fluggesellschaft wegen verlorenen Gepäcks. Schildern Sie das Problem und fordern Sie eine Entschädigung.",["sehr geehrte","verloren","entschädigung","ich erwarte"]],["Schreiben Sie einen Artikel für die Uni-Zeitung: Sollten Studiengebühren wieder eingeführt werden?",["einerseits","andererseits","vielmehr","fazit"]]);
+W2.push(["Verfassen Sie eine Erörterung: Inwieweit beeinflussen soziale Medien die öffentliche Meinung?",["inwieweit","zwar","jedoch","abschließend"]],["Schreiben Sie einen formellen Brief an die Stadtverwaltung und kritisieren Sie die geplante Schließung der Bibliothek.",["sehr geehrte","schließung","ich fordere","mit freundlichen"]]);
 const L=[L0,L1,L2],R=[R0,R1,R2],W=[W0,W1,W2],P=[P0,P1,P2],E=[E0,E1,E2];
 // Niveau selon les jours pratiqués : B2 (90 j), C1 (150 j), C2 (le reste) ; chaque 3e séance = défi du niveau suivant
-const nd=()=>Object.keys(S.days).length,tier=()=>nd()<90?0:nd()<240?1:2,tp=()=>tier()<2&&S.n%3==2?tier()+1:tier();
+const nd=()=>Object.keys(S.days).length,stg=()=>nd()<30?0:nd()<60?1:2,tp=()=>stg()==0?1:stg()==1?(S.n%2?2:1):2;
 
 // ---- Félicitations ----
 const M=["Bravo ma chérie {n} ! 🌹 Chaque mot que tu apprends me rend plus fier de toi. Tu brilles, continue ! 💖",
@@ -107,14 +126,14 @@ function streak(){let s=0;for(let i=0;i<365;i++){if(S.days[dk(i)])s++;else if(i)
 // ---- Accueil ----
 function home(){const d=S.days[dk(0)];
 app.innerHTML=`<h1>Bonjour ${NAME} ! 🌹</h1><div class=top><span>🔥 ${streak()} jour(s) de suite</span><span>⏱ ${d?d.min:0} / 60 min</span></div>
-<div class=card><h2>${d?'✅ Journée validée, bravo !':'Ta séance du jour t\'attend'}</h2><p>Niveau actuel : <b>${['B2','C1','C2'][tier()]}</b> · mois ${Math.min(12,Math.floor(nd()/30)+1)}/12. Objectif : 1 heure par jour. 5 ateliers : écoute, lecture, écriture, oral et expressions.</p>
-<button class=btn id=go>${d?'Continuer une autre séance ▶':'Commencer la séance ▶'}</button><details style="margin-top:12px"><summary>📅 Programme sur 12 mois</summary><p class=tx>Mois 1 à 3 : B2 solide (consolidation).<br>Mois 4 à 8 : C1 (textes plus longs, argumentation).<br>Mois 9 à 12 : C2 (nuances, registre soutenu, expressions idiomatiques).<br>Une séance sur trois propose un défi du niveau supérieur.</p></details></div>${chart()}`;
+<div class=card><h2>${d?'✅ Journée validée, bravo !':'Ta séance du jour t\'attend'}</h2><p>Cible : <b>ECL C1</b> (≥ 60 % dans chaque compétence). Phase : <b>${['C1 base','C1 avancé','C1 examen'][stg()]}</b> · mois ${Math.min(3,Math.floor(nd()/30)+1)}/3. Objectif : 1 heure par jour. 5 ateliers : écoute, lecture, écriture, oral et expressions.</p>
+<button class=btn id=go>${d?'Continuer une autre séance ▶':'Commencer la séance ▶'}</button><details style="margin-top:12px"><summary>📅 Programme sur 3 mois</summary><p class=tx>Mois 1 : C1 base (textes denses, questions d'inférence, 2 écoutes maximum).<br>Mois 2 : C1 avancé (mélange avec des textes de niveau plus haut).<br>Mois 3 : C1 examen (textes difficiles, écriture jusqu'à 400 mots).<br>Écriture travaillée 2 fois par séance, car c'est ton point à renforcer.</p></details></div>${chart()}`;
 document.getElementById('go').onclick=start}
 
 // ---- Séance ----
 function start(){ses={errs:[],sc:[],t0:Date.now()};const st=[];
 if(S.err&&S.err.length)st.push(warm);
-st.push(f=>quiz(0,f),f=>quiz(1,f),writing,speaking,expr);ses.steps=st;run(0)}
+st.push(f=>quiz(0,f),f=>quiz(1,f),writing,f=>writing(f,1),speaking,expr);ses.steps=st;run(0)}
 function run(i){if(i>=ses.steps.length)return end();ses.steps[i](sc=>{if(sc!==null)ses.sc.push(sc);run(i+1)})}
 function res(title,sc,nx){app.innerHTML=`<div class=card><h2>${title}</h2><div class=big>${sc}%</div>${cong(sc)}<button class=btn id=nx>Suivant ▶</button></div>`;document.getElementById('nx').onclick=nx}
 function warm(f){app.innerHTML=`<div class=card><h2>🔁 Échauffement : à revoir d'hier</h2>${S.err.map(e=>`<div class=tx>${e}</div>`).join('')}<button class=btn id=nx>J'ai relu, on y va ▶</button></div>`;document.getElementById('nx').onclick=()=>f(null)}
@@ -122,14 +141,14 @@ function warm(f){app.innerHTML=`<div class=card><h2>🔁 Échauffement : à revo
 function quiz(hear,f){const A=(hear?L:R)[tp()],n=A.length,items=[A[(2*S.n)%n],A[(2*S.n+1)%n]];let i=0,sc=0;
 (function show(){const[t,q,o,a]=items[i];
 app.innerHTML=`<div class=card><h2>${hear?'🎧 Écoute':'📖 Lecture'} · ${i+1}/2</h2>`+(hear?`<button class="btn s" id=pl>▶ Écouter l'audio</button><p style="margin-top:10px">Vitesse : <b id=rv>${rate}</b>x</p><input type=range id=rg min=.5 max=1.3 step=.1 value=${rate}>`:`<p class=tx>${t}</p>`)+`<p style="margin:12px 0;font-weight:700">${q}</p><div id=os>${o.map((x,k)=>`<button class=opt data-k=${k}>${x}</button>`).join('')}</div><div id=fb></div></div>`;
-if(hear){document.getElementById('pl').onclick=()=>play(t);document.getElementById('rg').oninput=e=>{rate=+e.target.value;S.rate=rate;document.getElementById('rv').textContent=rate;save()}}
+if(hear){let pc=0;const pe=document.getElementById('pl');pe.onclick=()=>{if(pc>=2)return toast('Comme à l\'examen : 2 écoutes maximum.');pc++;pe.textContent='▶ Réécouter ('+(2-pc)+' restante(s))';play(t)};document.getElementById('rg').oninput=e=>{rate=+e.target.value;S.rate=rate;document.getElementById('rv').textContent=rate;save()}}
 document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;document.querySelectorAll('.opt').forEach(x=>x.disabled=true);
 document.querySelectorAll('.opt')[a].classList.add('ok');
 if(k===a)sc+=100;else{b.classList.add('ko');ses.errs.push(`${hear?'Écoute':'Lecture'} : « ${q} » → ${o[a]}`)}
 document.getElementById('fb').innerHTML=`<p class=tx>${t}</p><button class=btn id=nx>Suivant ▶</button>`;
 document.getElementById('nx').onclick=()=>{i++;if(i<2)show();else{const s=Math.round(sc/2);res(hear?'🎧 Écoute terminée':'📖 Lecture terminée',s,()=>f(s))}}})})()}
 
-function writing(f){const q=W[tp()],[p,k]=q[S.n%q.length],tg=[60,90,120][tp()];
+function writing(f,o=0){const q=W[tp()],[p,k]=q[(S.n+o)%q.length],tg=[150,250,400][stg()];
 app.innerHTML=`<div class=card><h2>✍️ Écriture</h2><p>${p}</p><p class=tx>Mots allemands à utiliser : ${k.join(' · ')}</p><textarea id=ta placeholder="Schreibe hier auf Deutsch…"></textarea><button class=btn id=ck>Vérifier mon texte</button><div id=fb></div></div>`;
 document.getElementById('ck').onclick=()=>{const t=document.getElementById('ta').value,lw=t.toLowerCase(),w=t.trim().split(/\s+/).filter(Boolean).length;
 const miss=k.filter(x=>!lw.includes(x)),sc=Math.min(50,Math.round(w/tg*50))+Math.round((k.length-miss.length)/k.length*50);
