@@ -99,9 +99,78 @@ R2.push(["Dass die Studie methodische Schwächen aufweise, bestreiten selbst ihr
 ["Während die Befürworter auf die wirtschaftlichen Vorteile verweisen, warnen Umweltverbände vor irreversiblen Schäden für die Region.","Aussage : Umweltverbände sehen keine Risiken für die Region.",RO,1]);
 W1.push(["Schreiben Sie einen Beschwerdebrief an eine Fluggesellschaft wegen verlorenen Gepäcks. Schildern Sie das Problem und fordern Sie eine Entschädigung.",["sehr geehrte","verloren","entschädigung","ich erwarte"]],["Schreiben Sie einen Artikel für die Uni-Zeitung: Sollten Studiengebühren wieder eingeführt werden?",["einerseits","andererseits","vielmehr","fazit"]]);
 W2.push(["Verfassen Sie eine Erörterung: Inwieweit beeinflussen soziale Medien die öffentliche Meinung?",["inwieweit","zwar","jedoch","abschließend"]],["Schreiben Sie einen formellen Brief an die Stadtverwaltung und kritisieren Sie die geplante Schließung der Bibliothek.",["sehr geehrte","schließung","ich fordere","mit freundlichen"]]);
+const C=[
+["Begegnungen","nicht (position) et ordre des compléments","Ordre des compléments : Temps → Cause → Manière → Lieu (TeKaMoLo). « nicht » se met avant ce qu'on nie, ou à la fin pour nier tout le verbe.","Ich fahre heute wegen des Regens mit dem Bus zur Arbeit.",
+["Ich gehe heute ___ ins Kino.",["nicht","kein","nichts"],0,"« nicht » nie une action ; « kein » nie un nom. Simple : Ich gehe nicht ins Kino."],
+["Welche Reihenfolge ist richtig ?",["Er fährt wegen des Staus langsam nach Hause.","Er fährt nach Hause langsam wegen des Staus.","Er fährt langsam wegen des Staus nach Hause."],0,"Cause (wegen des Staus) → manière (langsam) → lieu (nach Hause)."],
+["Schreiben Sie eine E-Mail an eine neue Kollegin und geben Sie Tipps für den Start in der Stadt (ca. 150 Wörter).",[["herzlich willkommen","bienvenue"],["außerdem","de plus"],["ich empfehle","je recommande"]]],
+["Am Anfang war alles ungewohnt, aber ich habe mich schnell eingelebt.","Ich finde, dass Vorurteile oft aus Unwissen entstehen."]],
+["An die Arbeit","la condition : wenn / falls / sofern","« wenn » = si/quand, « falls » = au cas où, « sofern » = pour autant que. Le verbe conjugué va à la fin de la subordonnée.","Falls Sie Zeit haben, rufen Sie mich bitte an.",
+["___ du Zeit hast, kommen wir vorbei.",["Falls","Weil","Obwohl"],0,"« falls » = condition. weil = parce que ; obwohl = bien que. Simple : Wenn du Zeit hast…"],
+["Wenn ich mehr Erfahrung ___, würde ich mich bewerben.",["hätte","habe","hatte"],0,"Condition irréelle → Konjunktiv II : hätte (= j'aurais)."],
+["Schreiben Sie eine Bewerbung für eine Stelle als Büroassistent/in (ca. 150 Wörter).",[["sehr geehrte","formule d'appel formelle"],["ich bewerbe mich","je postule"],["mit freundlichen","formule finale"]]],
+["Ich bewerbe mich um die Stelle, weil sie genau meinen Fähigkeiten entspricht.","Falls Sie weitere Unterlagen benötigen, schicke ich sie gern."]],
+["Alles im Wandel","Partizip I/II comme adjectif et les causes","Partizip I (-end) = action en cours : das spielende Kind. Partizip II = action finie : das gelöste Problem. Causes : weil (verbe à la fin), wegen (+ génitif), dank (+ datif, cause positive).","Dank der neuen Busse ist der Verkehr besser geworden.",
+["Das ___ Kind lacht laut.",["spielende","gespielte","spielt"],0,"Action en cours → Partizip I (spiel-end-e) : l'enfant qui joue."],
+["___ des Staus kam ich zu spät.",["Wegen","Dank","Obwohl"],0,"Cause négative → wegen. « dank » = grâce à (cause positive)."],
+["Schreiben Sie einen Leserbrief: Was sollte in Ihrer Stadt verbessert werden? (ca. 150 Wörter)",[["wegen","à cause de"],["dank","grâce à"],["deshalb","c'est pourquoi"]]],
+["Aufgrund der hohen Kosten halte ich den Vorschlag für unrealistisch.","Dank neuer Technik hat sich vieles zum Besseren verändert."]],
+["Lass uns reden","Konjunktiv II et comparaisons irréelles","« als ob » + Konjunktiv II = comme si. Conseil poli : würde + infinitif, ou wäre / hätte / könnte.","Er tut so, als ob er alles wüsste.",
+["Sie spricht, als ob sie alles ___.",["wüsste","weiß","wusste"],0,"Après « als ob » : Konjunktiv II → wüsste (de wissen)."],
+["An deiner Stelle ___ ich mich entschuldigen.",["würde","werde","wurde"],0,"Conseil = würde + infinitif (« à ta place, je ... »)."],
+["Schreiben Sie einen Forumsbeitrag: Wie kann man Konflikte im Gespräch lösen? (ca. 150 Wörter)",[["an deiner stelle","à ta place"],["als ob","comme si"],["meiner meinung nach","à mon avis"]]],
+["Er verhält sich, als ob nichts passiert wäre.","An deiner Stelle würde ich ruhig bleiben und zuhören."]],
+["Technik gut, alles gut ?","le passif (werden + Partizip II)","Présent : wird gemacht. Prétérit : wurde gemacht. Parfait : ist gemacht worden. On l'utilise quand l'acteur importe peu.","Das Auto wird repariert.",
+["Der Strom ___ gestern repariert.",["wurde","wird","ist"],0,"« gestern » = passé → prétérit passif : wurde + Partizip II."],
+["Die Aufgabe ist schon gelöst ___.",["worden","geworden","werden"],0,"Parfait passif : ist + Partizip II + worden."],
+["Beschreiben Sie ein technisches Problem und bitten Sie um Hilfe (ca. 150 Wörter).",[["leider","malheureusement"],["funktioniert nicht","ne fonctionne pas"],["ich bitte sie","je vous prie de"]]],
+["Die Reparatur wurde gestern endlich abgeschlossen.","Es wird erwartet, dass das Problem bald gelöst wird."]],
+["Gesundheit !","les conséquences et le Konjunktiv II passé","Conséquence : deshalb, daher, sodass. Irréel du passé : hätte/wäre + Partizip II. Verbe de mouvement → wäre.","Wenn ich früher geschlafen hätte, wäre ich fit gewesen.",
+["Ich war krank, ___ konnte ich nicht kommen.",["deshalb","obwohl","weil"],0,"deshalb = c'est pourquoi (conséquence). Le verbe vient juste après."],
+["Wenn ich früher ins Bett gegangen ___, wäre ich fit gewesen.",["wäre","hätte","würde"],0,"« gehen » est un verbe de mouvement : wäre + Partizip II."],
+["Schreiben Sie einen Forumsbeitrag mit Tipps für gesunden Schlaf (ca. 150 Wörter).",[["deshalb","c'est pourquoi"],["sodass","si bien que"],["ich rate","je conseille"]]],
+["Wenn ich mehr Sport getrieben hätte, wäre ich jetzt fitter.","Wer zu wenig schläft, kann sich schlecht konzentrieren."]],
+["Wieder was gelernt !","expressions verbe-nom et le temps","Locutions fixes : eine Entscheidung treffen (décider), in Betracht ziehen (envisager). Temps : nachdem (après que + plus-que-parfait), bevor (avant que), während (pendant que), seit (depuis).","Nachdem ich gelernt hatte, ging ich schlafen.",
+["___ ich gegessen hatte, ging ich spazieren.",["Nachdem","Bevor","Während"],0,"Action terminée avant l'autre → nachdem + plus-que-parfait."],
+["Wir müssen eine Entscheidung ___.",["treffen","machen","geben"],0,"Locution fixe : eine Entscheidung treffen. Plus simple : entscheiden."],
+["Schreiben Sie eine formelle Anfrage an eine Sprachschule (ca. 150 Wörter).",[["ich möchte wissen","je voudrais savoir"],["können sie mir","pouvez-vous me"],["vielen dank","merci beaucoup"]]],
+["Bevor ich einen Kurs buche, möchte ich mich genau informieren.","Seit ich täglich übe, verstehe ich viel mehr."]],
+["Einfach menschlich","verbes + prépositions et je … desto","À apprendre avec le verbe : warten auf (+ Akk.), sich freuen auf (futur) / über (présent), Angst haben vor (+ Dat.). Comparaison : je mehr …, desto besser.","Je mehr ich übe, desto besser spreche ich.",
+["Ich warte ___ den Bus.",["auf","für","an"],0,"warten auf + accusatif. Apprends toujours le verbe avec sa préposition."],
+["___ mehr du lernst, desto besser wirst du.",["Je","Wie","Als"],0,"Structure fixe : je + comparatif …, desto + comparatif."],
+["Schreiben Sie über eine Erfahrung, die anders verlief als erwartet (ca. 150 Wörter).",[["anders als","différent de"],["desto","plus (… plus)"],["gefreut","réjoui"]]],
+["Je länger ich darüber nachdenke, desto wichtiger finde ich Freundschaft.","Ich habe mich sehr über deine Nachricht gefreut."]],
+["Gut wirtschaften","passif impersonnel et concession","Passif sans sujet : Hier wird viel gearbeitet. Concession : obwohl (verbe à la fin), trotzdem (verbe en 2e position), zwar … aber.","Obwohl es teuer ist, kaufe ich es.",
+["___ es regnet, gehen wir spazieren.",["Obwohl","Weil","Damit"],0,"obwohl = bien que (opposition inattendue)."],
+["Es regnet, ___ gehen wir spazieren.",["trotzdem","obwohl","weil"],0,"trotzdem = malgré cela ; le verbe suit directement (gehen wir)."],
+["Schreiben Sie eine Beschwerde über einen defekten Artikel (ca. 150 Wörter).",[["leider","malheureusement"],["trotzdem","malgré cela"],["ich erwarte","j'attends"]]],
+["Obwohl die Preise gestiegen sind, kaufen viele Menschen weiterhin online.","Zwar ist das Angebot günstig, aber die Qualität überzeugt mich nicht."]],
+["Kunstvoll","propositions relatives et passif werden / sein","Relative : der/die/das + verbe à la fin. Wer … = celui qui … Processus = werden (Die Tür wird geöffnet), résultat = sein (Die Tür ist geöffnet).","Das Fenster ist geöffnet.",
+["Der Film, ___ ich gestern gesehen habe, war toll.",["den","der","dem"],0,"Film = masculin, complément d'objet direct → accusatif : den."],
+["Das Museum ___ montags geschlossen.",["ist","wird","hat"],0,"État/résultat = sein + Partizip II : ist geschlossen."],
+["Empfehlen Sie einen Film oder eine Serie in einem Blogbeitrag (ca. 150 Wörter).",[["empfehle","je recommande"],["handelt von","parle de"],["meiner meinung nach","à mon avis"]]],
+["Der Roman, den ich gerade lese, handelt von einer Familie.","Wer Kunst liebt, sollte dieses Museum besuchen."]],
+["Viel zu tun","discours indirect (Konjunktiv I) et manière","Discours indirect : Er sagt, er habe Zeit (habe = Konjunktiv I). Pour sein : sei. Plus simple à l'oral : Er sagt, dass er Zeit hat. Manière : indem = en faisant.","Sie sagte, sie sei müde.",
+["Er sagte, er ___ keine Zeit.",["habe","hatte","hat"],0,"Discours indirect → Konjunktiv I : habe."],
+["Man lernt eine Sprache, ___ man viel spricht.",["indem","obwohl","damit"],0,"indem = en + gérondif : en parlant beaucoup."],
+["Schreiben Sie ein Protokoll über eine Besprechung (ca. 150 Wörter).",[["laut","selon"],["beschlossen","décidé"],["zusammenfassend","en résumé"]]],
+["Der Chef sagte, er sei mit dem Ergebnis zufrieden.","Man kann Stress reduzieren, indem man Aufgaben plant."]],
+["Aufgepasst !","suppositions et oppositions","Supposition : muss (sûrement), dürfte (probablement), könnte (peut-être). Opposition : während (alors que), dagegen / hingegen (en revanche).","Er ist nicht da, er muss krank sein.",
+["Das Licht brennt, er ___ zu Hause sein.",["muss","darf","soll"],0,"muss + infinitif = supposition forte (il doit sûrement être là)."],
+["Ich mag Tee, ___ mag meine Schwester Kaffee.",["dagegen","deshalb","weil"],0,"dagegen = en revanche (opposition)."],
+["Beschreiben Sie eine Situation und äußern Sie Vermutungen (ca. 150 Wörter).",[["vermutlich","probablement"],["könnte","pourrait"],["hingegen","en revanche"]]],
+["Er ist nicht gekommen, vermutlich hat er den Zug verpasst.","Während der eine spart, gibt der andere viel Geld aus."]]];
+const START='2026-11-02',PD=()=>Math.max(1,Math.min(18,Math.floor((new Date(dk(0))-new Date(START))/864e5)+1)),ST=()=>(S.days[dk(0)]||{ses:0}).ses,CH=()=>((PD()-1)*3+ST())%12,PH=d=>d<=4?'Découverte (1er passage)':d<=8?'Consolidation (2e passage)':d<=12?'Maîtrise (3e passage)':d<=16?"Simulation d'examen":d==17?'Points faibles':'Révision légère',LEFT=()=>Math.ceil((new Date('2026-11-20T09:00:00')-Date.now())/864e5);
+function lesson(f){const c=C[CH()];app.innerHTML=`<div class=card><h2>🧑‍🏫 Cours : chapitre ${CH()+1} · ${c[0]}</h2><p>Aujourd'hui : <b>${c[1]}</b></p><p class=tx>${c[2]}</p><p class=tx><b>Exemple :</b> ${c[3]}</p><button class="btn s" id=pl>🔊 Écouter l'exemple</button><button class=btn id=nx>J'ai compris, on s'entraîne ▶</button></div>`;document.getElementById('pl').onclick=()=>play(c[3]);document.getElementById('nx').onclick=()=>f(null)}
+function gram(f){const it=C[CH()].slice(4,6);let i=0,sc=0;(function show(){const[q,o,a,why]=it[i];
+app.innerHTML=`<div class=card><h2>🧩 Grammaire · ${i+1}/2</h2><p style="font-weight:700;margin:8px 0">${q}</p>${o.map((x,k)=>`<button class=opt data-k=${k}>${x}</button>`).join('')}<div id=fb></div></div>`;
+document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;document.querySelectorAll('.opt').forEach(x=>x.disabled=true);document.querySelectorAll('.opt')[a].classList.add('ok');
+if(k===a)sc+=100;else{b.classList.add('ko');ses.errs.push(`Grammaire : « ${q} » → ${o[a]} (${why})`)}
+document.getElementById('fb').innerHTML=`<p class=tx>🧑‍🏫 ${k===a?'Bravo ! ':'Pas grave, on comprend ensemble. '}${why}</p><button class=btn id=nx>Suivant ▶</button>`;
+document.getElementById('nx').onclick=()=>{i++;if(i<2)show();else{const r=Math.round(sc/2);res('🧩 Grammaire terminée',r,()=>f(r))}}})})()}
 const L=[L0,L1,L2],R=[R0,R1,R2],W=[W0,W1,W2],P=[P0,P1,P2],E=[E0,E1,E2];
 // Niveau selon les jours pratiqués : B2 (90 j), C1 (150 j), C2 (le reste) ; chaque 3e séance = défi du niveau suivant
-const nd=()=>Object.keys(S.days).length,stg=()=>nd()<30?0:nd()<60?1:2,tp=()=>stg()==0?1:stg()==1?(S.n%2?2:1):2;
+const nd=()=>Object.keys(S.days).length,stg=()=>0,tp=()=>S.n%3==2?1:0;
 
 // ---- Félicitations ----
 const M=["Bravo ma chérie {n} ! 🌹 Chaque mot que tu apprends me rend plus fier de toi. Tu brilles, continue ! 💖",
@@ -124,46 +193,47 @@ return `<div class=card><h2>📈 Ma progression (score par jour)</h2><div class=
 function streak(){let s=0;for(let i=0;i<365;i++){if(S.days[dk(i)])s++;else if(i)break}return s}
 
 // ---- Accueil ----
-function home(){const d=S.days[dk(0)];
-app.innerHTML=`<h1>Bonjour ${NAME} ! 🌹</h1><div class=top><span>🔥 ${streak()} jour(s) de suite</span><span>⏱ ${d?d.min:0} / 60 min</span></div>
-<div class=card><h2>${d?'✅ Journée validée, bravo !':'Ta séance du jour t\'attend'}</h2><p>Cible : <b>ECL C1</b> (≥ 60 % dans chaque compétence). Phase : <b>${['C1 base','C1 avancé','C1 examen'][stg()]}</b> · mois ${Math.min(3,Math.floor(nd()/30)+1)}/3. Objectif : 1 heure par jour. 5 ateliers : écoute, lecture, écriture, oral et expressions.</p>
-<button class=btn id=go>${d?'Continuer une autre séance ▶':'Commencer la séance ▶'}</button><details style="margin-top:12px"><summary>📅 Programme sur 3 mois</summary><p class=tx>Mois 1 : C1 base (textes denses, questions d'inférence, 2 écoutes maximum).<br>Mois 2 : C1 avancé (mélange avec des textes de niveau plus haut).<br>Mois 3 : C1 examen (textes difficiles, écriture jusqu'à 400 mots).<br>Écriture travaillée 2 fois par séance, car c'est ton point à renforcer.</p></details></div>${chart()}`;
-document.getElementById('go').onclick=start}
+function home(){const d=S.days[dk(0)],ok=d&&d.ses>=3;
+app.innerHTML=`<h1>Bonjour ${NAME} ! 🌹</h1><div class=top><span>🔥 ${streak()} jour(s) de suite</span><span>⏱ ${d?d.min:0} / 180 min</span></div>
+<div class=card><h2>📅 Examen le 20 novembre : ${LEFT()>0?'J-'+LEFT():'jour J, bonne chance !'}</h2><p>${LEFT()>0&&LEFT()<=3?'Dernière ligne droite : refais tes erreurs et reste calme.':'Un chapitre de ton livre par séance, avec cours, exercices et explications.'}</p></div><div class=card><h2>${ok?'✅ Journée validée (3 blocs), bravo !':'Bloc '+Math.min(ST()+1,3)+' / 3 de ta journée'}</h2><p>Jour ${PD()}/18 · phase <b>${PH(PD())}</b>.<br>Prochain chapitre : <b>${CH()+1}. ${C[CH()][0]}</b>. Objectif : 3 blocs d'1 heure par jour. 5 ateliers : écoute, lecture, écriture, oral et expressions.</p>
+<button class=btn id=go>${ok?'Bloc bonus ▶':'Commencer le bloc '+Math.min(ST()+1,3)+' ▶'}</button><button class="btn s" id=pg>📋 Voir le programme complet</button><details style="margin-top:12px"><summary>📅 Mon programme</summary><p class=tx>Chaque bloc suit un chapitre de ton livre (12 chapitres, vus 3 fois avant l'examen).<br>1) Cours 2) Grammaire 3) Écoute 4) Lecture 5) Écriture (2 fois) 6) Oral 7) Expressions.<br>Si tu te trompes, ton professeur t'explique et propose une version plus simple.</p></details></div>${chart()}`;
+document.getElementById('go').onclick=start;document.getElementById('pg').onclick=prog}
 
 // ---- Séance ----
 function start(){ses={errs:[],sc:[],t0:Date.now()};const st=[];
 if(S.err&&S.err.length)st.push(warm);
-st.push(f=>quiz(0,f),f=>quiz(1,f),writing,f=>writing(f,1),speaking,expr);ses.steps=st;run(0)}
+st.push(lesson,gram,f=>quiz(1,f),f=>quiz(0,f),f=>writing(f,0),f=>writing(f,1),speaking,expr);ses.steps=st;run(0)}
 function run(i){if(i>=ses.steps.length)return end();ses.steps[i](sc=>{if(sc!==null)ses.sc.push(sc);run(i+1)})}
 function res(title,sc,nx){app.innerHTML=`<div class=card><h2>${title}</h2><div class=big>${sc}%</div>${cong(sc)}<button class=btn id=nx>Suivant ▶</button></div>`;document.getElementById('nx').onclick=nx}
 function warm(f){app.innerHTML=`<div class=card><h2>🔁 Échauffement : à revoir d'hier</h2>${S.err.map(e=>`<div class=tx>${e}</div>`).join('')}<button class=btn id=nx>J'ai relu, on y va ▶</button></div>`;document.getElementById('nx').onclick=()=>f(null)}
 
 function quiz(hear,f){const A=(hear?L:R)[tp()],n=A.length,items=[A[(2*S.n)%n],A[(2*S.n+1)%n]];let i=0,sc=0;
 (function show(){const[t,q,o,a]=items[i];
-app.innerHTML=`<div class=card><h2>${hear?'🎧 Écoute':'📖 Lecture'} · ${i+1}/2</h2>`+(hear?`<button class="btn s" id=pl>▶ Écouter l'audio</button><p style="margin-top:10px">Vitesse : <b id=rv>${rate}</b>x</p><input type=range id=rg min=.5 max=1.3 step=.1 value=${rate}>`:`<p class=tx>${t}</p>`)+`<p style="margin:12px 0;font-weight:700">${q}</p><div id=os>${o.map((x,k)=>`<button class=opt data-k=${k}>${x}</button>`).join('')}</div><div id=fb></div></div>`;
+app.innerHTML=`<div class=card><h2>${hear?'🎧 Écoute':'📖 Lecture'} · ${i+1}/2</h2>`+(hear?`<button class="btn s" id=pl>▶ Écouter l'audio</button><p style="margin-top:10px">Vitesse : <b id=rv>${rate}</b>x</p><input type=range id=rg min=.5 max=1.3 step=.1 value=${rate}>`:`<p class=tx>${t}</p>`)+`<p style="margin:12px 0;font-weight:700">${q}</p><div id=os>${o.map((x,k)=>`<button class=opt data-k=${k}>${x}</button>`).join('')}</div><button class="btn s" id=hp>❓ Je n'ai pas compris</button><div id=fb></div></div>`;
 if(hear){let pc=0;const pe=document.getElementById('pl');pe.onclick=()=>{if(pc>=2)return toast('Comme à l\'examen : 2 écoutes maximum.');pc++;pe.textContent='▶ Réécouter ('+(2-pc)+' restante(s))';play(t)};document.getElementById('rg').oninput=e=>{rate=+e.target.value;S.rate=rate;document.getElementById('rv').textContent=rate;save()}}
+document.getElementById('hp').onclick=()=>{if(hear)say(t);document.getElementById('fb').innerHTML='<p class=tx>🧑‍🏫 '+(hear?'Je lis plus lentement. Écoute sans lire : qui parle ? de quoi ? Les chiffres et les jours sont souvent la clé.':'Lis la question, puis cherche son mot-clé dans le texte. Ignore les mots inconnus : le sens général suffit souvent.')+'</p>'};
 document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;document.querySelectorAll('.opt').forEach(x=>x.disabled=true);
 document.querySelectorAll('.opt')[a].classList.add('ok');
 if(k===a)sc+=100;else{b.classList.add('ko');ses.errs.push(`${hear?'Écoute':'Lecture'} : « ${q} » → ${o[a]}`)}
-document.getElementById('fb').innerHTML=`<p class=tx>${t}</p><button class=btn id=nx>Suivant ▶</button>`;
+document.getElementById('fb').innerHTML=`<p class=tx>🧑‍🏫 ${k===a?'Bien joué !':'Pas grave ! La bonne réponse est « '+o[a]+' ». '+(hear?'Relis la transcription et repère la phrase clé.':'La réponse est dans la phrase qui contient le mot-clé de la question.')}</p><p class=tx>${t}</p><button class=btn id=nx>Suivant ▶</button>`;
 document.getElementById('nx').onclick=()=>{i++;if(i<2)show();else{const s=Math.round(sc/2);res(hear?'🎧 Écoute terminée':'📖 Lecture terminée',s,()=>f(s))}}})})()}
 
-function writing(f,o=0){const q=W[tp()],[p,k]=q[(S.n+o)%q.length],tg=[150,250,400][stg()];
-app.innerHTML=`<div class=card><h2>✍️ Écriture</h2><p>${p}</p><p class=tx>Mots allemands à utiliser : ${k.join(' · ')}</p><textarea id=ta placeholder="Schreibe hier auf Deutsch…"></textarea><button class=btn id=ck>Vérifier mon texte</button><div id=fb></div></div>`;
+function writing(f,o=0){const[p,k0]=o?W0[S.n%4]:C[CH()][6],k=k0.map(x=>Array.isArray(x)?x[0]:x),tg=150;
+app.innerHTML=`<div class=card><h2>✍️ Écriture</h2><p>${p}</p><p class=tx>Mots allemands à utiliser : ${k0.map(x=>Array.isArray(x)?x[0]+' ('+x[1]+')':x).join(' · ')}</p><textarea id=ta placeholder="Schreibe hier auf Deutsch…"></textarea><button class=btn id=ck>Vérifier mon texte</button><div id=fb></div></div>`;
 document.getElementById('ck').onclick=()=>{const t=document.getElementById('ta').value,lw=t.toLowerCase(),w=t.trim().split(/\s+/).filter(Boolean).length;
 const miss=k.filter(x=>!lw.includes(x)),sc=Math.min(50,Math.round(w/tg*50))+Math.round((k.length-miss.length)/k.length*50);
 miss.forEach(m=>ses.errs.push(`Écriture : expression oubliée « ${m} »`));
 document.getElementById('fb').innerHTML=`<p class=tx>${w} mots. ${miss.length?'À ajouter la prochaine fois : '+miss.join(', '):'Toutes les expressions sont utilisées, bravo !'}</p><button class=btn id=nx>Suivant ▶</button>`;
 document.getElementById('nx').onclick=()=>res('✍️ Écriture terminée',sc,()=>f(sc))}}
 
-function speaking(f){const SR=window.SpeechRecognition||window.webkitSpeechRecognition,Q=P[tp()],items=[Q[(2*S.n)%Q.length],Q[(2*S.n+1)%Q.length]];let i=0,tot=0;
+function speaking(f){const SR=window.SpeechRecognition||window.webkitSpeechRecognition,items=C[CH()][7];let i=0,tot=0;
 const nrm=s=>s.toLowerCase().replace(/[.,!?]/g,'').split(/\s+/).filter(Boolean);
 (function show(){const p=items[i];
 app.innerHTML=`<div class=card><h2>🗣️ Expression orale · ${i+1}/2</h2><p class=tx style="font-size:19px">${p}</p><button class="btn s" id=pl>▶ Écouter la phrase</button><button class=btn id=mic>${SR?'🎤 Répéter à voix haute':'✅ Je l\'ai dite à voix haute'}</button><div id=fb></div></div>`;
 document.getElementById('pl').onclick=()=>play(p);
 function done(sc,miss){tot+=sc;miss.forEach(m=>ses.errs.push(`Oral : mot à répéter « ${m} »`));
-document.getElementById('fb').innerHTML=`<p class=tx>Score : ${sc}%${miss.length?'. Mots à retravailler : '+miss.join(', ')+'. Écoute puis réessaie !':' 👏'}</p><button class=btn id=nx>Suivant ▶</button>`;
-document.getElementById('nx').onclick=()=>{i++;if(i<2)show();else{const s=Math.round(tot/2);res('🗣️ Expression orale terminée',s,()=>f(s))}}}
+document.getElementById('fb').innerHTML=`<p class=tx>Score : ${sc}%${miss.length?'. Mots à retravailler : '+miss.join(', ')+'. Écoute chaque mot lentement :':' 👏'}</p>${miss.map(m=>`<button class="btn s" data-w="${m}">🔊 ${m}</button>`).join('')}<button class=btn id=nx>Suivant ▶</button>`;
+document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{const r=rate;rate=.6;say(b.dataset.w);rate=r});document.getElementById('nx').onclick=()=>{i++;if(i<2)show();else{const s=Math.round(tot/2);res('🗣️ Expression orale terminée',s,()=>f(s))}}}
 document.getElementById('mic').onclick=()=>{if(!SR)return done(80,[]);
 const r=new SR();r.lang='de-DE';r.onresult=e=>{const sp=nrm(e.results[0][0].transcript),w=nrm(p),miss=w.filter(x=>!sp.includes(x));done(Math.round((w.length-miss.length)/w.length*100),miss)};
 r.onerror=()=>{document.getElementById('fb').innerHTML='<p class=tx>Micro non détecté. Autorise le micro puis réessaie.</p>'};r.start()}})()}
@@ -174,7 +244,10 @@ document.getElementById('pl').onclick=()=>play(a[0]+'. '+b[0]);document.getEleme
 
 function end(){const sc=ses.sc.length?Math.round(ses.sc.reduce((x,y)=>x+y,0)/ses.sc.length):0,min=Math.max(1,Math.round((Date.now()-ses.t0)/60000)),k=dk(0),o=S.days[k]||{score:0,min:0,ses:0};
 S.days[k]={score:Math.round((o.score*o.ses+sc)/(o.ses+1)),min:o.min+min,ses:o.ses+1};S.n++;S.err=ses.errs.slice(0,6);save();
-app.innerHTML=`<div class=card><h2>🎉 Séance terminée</h2><div class=big>${sc}%</div>${cong(sc)}<h2>Mes erreurs à retenir</h2>${ses.errs.length?ses.errs.map(e=>`<div class=tx>${e}</div>`).join(''):'<p>Aucune erreur, parfait ! 🌟</p>'}<button class=btn id=more>Continuer une autre séance ▶</button><button class="btn s" id=hm>Retour à l'accueil</button></div>${chart()}`;
+app.innerHTML=`<div class=card><h2>🎉 Séance terminée</h2><div class=big>${sc}%</div>${cong(sc)}<h2>Mes erreurs à retenir</h2>${ses.errs.length?ses.errs.map(e=>`<div class=tx>${e}</div>`).join(''):'<p>Aucune erreur, parfait ! 🌟</p>'}<button class=btn id=more>Passer au bloc suivant ▶</button><button class="btn s" id=hm>Retour à l'accueil</button></div>${chart()}`;
 document.getElementById('more').onclick=start;document.getElementById('hm').onclick=home}
+function prog(){let h='';for(let d=1;d<=18;d++){const dt=new Date(new Date(START).getTime()+(d-1)*864e5),k=dt.toISOString().slice(0,10),dn=((S.days[k]||{}).ses||0)>=3,cs=[0,1,2].map(b=>((d-1)*3+b)%12+1).join(' · ');
+h+=`<div class=tx style="${d==PD()?'border:2px solid #ffd166':''}"><b>${dn?'✅':'⬜'} Jour ${d} · ${dt.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})}</b><br>${PH(d)}<br>Chapitres : ${cs}</div>`}
+app.innerHTML=`<h1>📋 Programme complet</h1><div class=card><p>3 blocs d'1 heure par jour : matin, après-midi, soir. Chaque bloc = un chapitre (cours, grammaire, écoute, lecture, écriture ×2, oral, expressions).</p>${h}<div class=tx><b>🎓 20 novembre : examen !</b></div><button class=btn id=bk>◀ Retour</button></div>`;document.getElementById('bk').onclick=home}
 home();
 </script></body></html>
