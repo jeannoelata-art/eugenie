@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#2a0845">
+<title>Deutsch avec Eugénie</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh;color:#fff;background:linear-gradient(160deg,#2a0845,#6a1b9a 55%,#e8457c) fixed;padding:14px 14px 90px}
+main{max-width:520px;margin:auto}
+h1{font-family:Georgia,serif;font-size:26px;margin:6px 0}
+h2{font-size:18px;margin-bottom:10px}
+.card{background:rgba(255,255,255,.14);border-radius:22px;padding:18px;margin:12px 0}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:15px;font-size:17px;font-weight:700;background:linear-gradient(90deg,#ffd166,#ff8fab);color:#3a0a3a;margin-top:12px}
+.btn.s{background:rgba(255,255,255,.22);color:#fff}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid #ffd166}
+.opt{display:block;width:100%;text-align:left;border:2px solid transparent;border-radius:14px;padding:13px;margin:8px 0;font-size:16px;background:rgba(255,255,255,.2);color:#fff}
+.opt.ok{background:#1fa971;border-color:#fff}.opt.ko{background:#d6336c;border-color:#fff}
+.tx{background:rgba(0,0,0,.25);border-radius:14px;padding:13px;line-height:1.5;margin:8px 0}
+.love{font-family:Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;margin:12px 0}
+.big{font-size:44px;font-weight:800;color:#ffd166}
+textarea{width:100%;min-height:150px;border-radius:14px;border:0;padding:12px;font-size:16px;font-family:inherit}
+.ch{display:flex;align-items:flex-end;gap:8px;height:150px}
+.bc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px}
+.bar{width:100%;background:linear-gradient(#ffd166,#ff8fab);border-radius:8px 8px 0 0;min-height:3px}
+small{font-size:12px;opacity:.85}
+.top{display:flex;justify-content:space-between;font-size:14px}
+#toast{position:fixed;left:12px;right:12px;bottom:14px;background:#ffd166;color:#3a0a3a;padding:14px;border-radius:16px;font-weight:600;display:none;max-width:496px;margin:auto}
+input[type=range]{width:100%;accent-color:#ffd166}
+</style></head><body><main id="app"></main><div id="toast"></div>
+<script>
+const NAME='Eugénie';
+let S;try{S=JSON.parse(localStorage.getItem('dm'))}catch(e){}
+S=S||{n:0,days:{},slow:0,rate:1,err:[]};
+let rate=S.rate||1,ses=null;
+const app=document.getElementById('app'),save=()=>{try{localStorage.setItem('dm',JSON.stringify(S))}catch(e){}};
+const dk=i=>new Date(Date.now()-i*864e5).toISOString().slice(0,10);
+
+// ---- Contenu (type Goethe-Zertifikat B2 : vie quotidienne + études) ----
+const L0=[["Die Bibliothek hat ab nächster Woche längere Öffnungszeiten: bis 22 Uhr, damit Studierende vor den Prüfungen mehr Zeit zum Lernen haben.","Warum ändert die Bibliothek die Öffnungszeiten ?",["Wegen einer Renovierung","Damit man länger lernen kann","Wegen weniger Besuchern"],1],
+["Viele Menschen arbeiten heute im Homeoffice. Das spart Fahrtzeit, aber manche fühlen sich allein und vermissen den Kontakt zu ihren Kollegen.","Was ist ein Nachteil des Homeoffice ?",["Man hat mehr Fahrtzeit","Man kann sich einsam fühlen","Man verdient weniger"],1],
+["Die Stadt plant, mehr Radwege zu bauen, um den Autoverkehr zu reduzieren. Kritiker sagen jedoch, dass dadurch viele Parkplätze verschwinden werden.","Was kritisieren die Gegner ?",["Die hohen Kosten","Weniger Parkplätze","Mehr Lärm"],1],
+["Der Sprachkurs beginnt nicht am Montag, sondern erst am Mittwoch, weil die Lehrerin krank ist. Bitte bringen Sie Ihr Buch und einen Ausweis mit.","Wann beginnt der Kurs ?",["Am Montag","Am Mittwoch","Am Freitag"],1]];
+const R0=[["Immer mehr Studierende arbeiten neben dem Studium, weil die Mieten stark gestiegen sind. Allerdings leidet darunter oft die Konzentration in den Vorlesungen.","Aussage : Studierende arbeiten, weil Wohnen teurer geworden ist.",["Richtig","Falsch"],0],
+["Obwohl viele Menschen Online-Kurse nutzen, bevorzugen die meisten Lernenden weiterhin den Unterricht im Klassenzimmer, da der direkte Austausch fehlt.","Aussage : Die meisten Lernenden bevorzugen Online-Kurse.",["Richtig","Falsch"],1],
+["Fachleute empfehlen, täglich kurz zu lernen, statt einmal pro Woche mehrere Stunden. So bleibt das Wissen länger im Gedächtnis.","Aussage : Kurzes tägliches Lernen ist laut Text effektiver.",["Richtig","Falsch"],0],
+["Die Firma führt eine Vier-Tage-Woche ein. Das Gehalt bleibt gleich, aber die Mitarbeitenden müssen täglich etwas länger arbeiten.","Aussage : Das Gehalt sinkt.",["Richtig","Falsch"],1]];
+const W0=[["Schreiben Sie eine formelle E-Mail (ca. 60 Wörter): Ihr bestellter Laptop kam beschädigt an.",["sehr geehrte","beschädigt","ich bitte","mit freundlichen"]],
+["Forum: Sollen Handys in der Schule verboten werden? Schreiben Sie Ihre Meinung (ca. 60 Wörter).",["meiner meinung nach","einerseits","andererseits","deshalb"]],
+["Schreiben Sie an Ihren Vermieter: Die Heizung ist kaputt (ca. 60 Wörter).",["sehr geehrte","heizung","repar","mit freundlichen"]],
+["Pro und Kontra: Homeoffice (ca. 60 Wörter).",["vorteil","nachteil","außerdem","zusammenfassend"]]];
+const P0=["Meiner Meinung nach hat beides Vor- und Nachteile.","Ich bin der Ansicht, dass man das nicht verallgemeinern kann.","Einerseits spart man Zeit, andererseits fehlt der persönliche Kontakt.","Das hängt ganz davon ab, wie man es betrachtet."];
+const E0=[["etwas in Kauf nehmen","accepter un inconvénient","etwas akzeptieren"],["ins Gewicht fallen","peser dans la balance","wichtig sein"],["auf dem Laufenden bleiben","rester informé","informiert bleiben"],["in Betracht ziehen","envisager","überlegen"]];
+const T=["Parler : fais des phrases courtes avec « einerseits… andererseits… ». Une phrase simple et claire vaut mieux qu'une phrase longue et fausse.","Écrire : commence toujours par un plan en 3 parties (introduction, arguments, conclusion) et utilise des mots de liaison : außerdem, deshalb, trotzdem.","Écouter : ne cherche pas chaque mot. Repère d'abord le sujet, puis les chiffres, les jours et les mots « aber » et « sondern »."];
+
+const L1=[["Laut einer neuen Studie verbringen Jugendliche durchschnittlich fünf Stunden täglich am Smartphone. Experten warnen vor Schlafproblemen, betonen aber, dass ein pauschales Verbot wenig bringe.","Wie stehen die Experten zu einem Verbot ?",["Sie fordern es dringend","Sie halten es für wenig wirksam","Sie ignorieren das Thema"],1],
+["Das Museum bleibt wegen Umbauarbeiten bis Ende März geschlossen. Eine Teilausstellung ist jedoch im Rathaus zu sehen, der Eintritt ist dort frei.","Was gilt für die Teilausstellung ?",["Sie kostet Eintritt","Sie ist im Rathaus kostenlos","Sie findet im Museum statt"],1],
+["Obwohl die Mieten in Großstädten steigen, ziehen viele junge Menschen weiterhin dorthin, da sie dort bessere Berufschancen sehen.","Warum ziehen sie trotzdem in Großstädte ?",["Wegen niedriger Mieten","Wegen besserer Jobaussichten","Wegen der Natur"],1],
+["Die Forscherin betonte, dass Mehrsprachigkeit nicht nur im Beruf nützlich sei, sondern auch das Gedächtnis im Alter schütze.","Welchen zusätzlichen Vorteil nennt sie ?",["Höheres Gehalt","Schutz des Gedächtnisses","Schnellere Karriere"],1]];
+const L2=[["Die Regierung verteidigte die Reform als überfällig, räumte jedoch ein, dass die Umsetzung hinter den Erwartungen zurückbleibe.","Wie bewertet die Regierung die Umsetzung ?",["Sie sei gelungen","Sie bleibe hinter den Erwartungen zurück","Sie sei gestoppt"],1],
+["Dem Vernehmen nach soll das Unternehmen Hunderte Stellen abbauen, was die Gewerkschaft scharf kritisiert, ohne dass bislang Details bekannt wären.","Was ist über die Pläne bekannt ?",["Alle Details","Nur Gerüchte, keine Details","Nichts wurde kritisiert"],1],
+["Der Autor argumentiert, dass der technische Fortschritt zwar Wohlstand schaffe, zugleich aber soziale Ungleichheit verschärfen könne.","Welche Gefahr sieht der Autor ?",["Weniger Wohlstand","Größere Ungleichheit","Weniger Technik"],1],
+["Statt die Debatte zu versachlichen, habe der Minister sie weiter angeheizt, so der Vorwurf der Opposition.","Was wirft die Opposition dem Minister vor ?",["Er habe die Debatte beruhigt","Er habe sie angeheizt","Er habe geschwiegen"],1]];
+const R1=[["Die Digitalisierung verändert die Arbeitswelt grundlegend: Routineaufgaben werden automatisiert, während kreative und soziale Kompetenzen an Bedeutung gewinnen.","Aussage : Kreative Fähigkeiten verlieren an Bedeutung.",["Richtig","Falsch"],1],
+["Entgegen der Erwartung ist die Zahl der Buchkäufer nicht gesunken; vielmehr lesen viele zusätzlich digital.","Aussage : Die Zahl der Buchkäufer ist stark gesunken.",["Richtig","Falsch"],1],
+["Städte setzen zunehmend auf begrünte Dächer, da diese im Sommer die Hitze mindern und Regenwasser speichern.","Aussage : Begrünte Dächer helfen gegen Hitze.",["Richtig","Falsch"],0],
+["Wer regelmäßig Sport treibt, schläft nachweislich besser, sofern das Training nicht unmittelbar vor dem Zubettgehen stattfindet.","Aussage : Training direkt vor dem Schlafen ist ideal.",["Richtig","Falsch"],1]];
+const R2=[["Ungeachtet der anhaltenden Kritik hält die Verwaltung an dem Vorhaben fest, zumal die Finanzierung inzwischen gesichert sei.","Aussage : Die Verwaltung gibt das Vorhaben wegen der Kritik auf.",["Richtig","Falsch"],1],
+["Der Roman, dessen Handlung im 19. Jahrhundert spielt, thematisiert Migration, ohne dabei in Klischees zu verfallen.","Aussage : Der Roman vermeidet Klischees.",["Richtig","Falsch"],0],
+["Man mag über die Methode streiten; unstrittig bleibt indes, dass die Ergebnisse reproduzierbar sind.","Aussage : Die Ergebnisse sind laut Text nicht reproduzierbar.",["Richtig","Falsch"],1],
+["Wiewohl die Maßnahme kurzfristig Entlastung bringt, dürfte sie langfristig kaum ausreichen.","Aussage : Die Maßnahme reicht langfristig wahrscheinlich nicht aus.",["Richtig","Falsch"],0]];
+const W1=[["Verfassen Sie einen Leserbrief (ca. 90 Wörter): Soll es in Städten autofreie Zonen geben?",["meines erachtens","zwar","dennoch","abschließend"]],
+["Schreiben Sie eine Stellungnahme: Chancen und Risiken künstlicher Intelligenz im Alltag (ca. 90 Wörter).",["chance","risiko","darüber hinaus","zusammenfassend"]],
+["Schreiben Sie eine Bewerbung für ein Praktikum bei einer internationalen Firma (ca. 90 Wörter).",["bewerbe mich","erfahrung","motiviert","mit freundlichen"]],
+["Erörterung: Sollte ein Auslandssemester Pflicht sein? (ca. 90 Wörter)",["einerseits","andererseits","meines erachtens","fazit"]]];
+const W2=[["Verfassen Sie einen Kommentar (ca. 120 Wörter): Rechtfertigt Wirtschaftswachstum ökologische Kompromisse?",["zwar","gleichwohl","nicht zuletzt","mithin"]],
+["Schreiben Sie eine Rezension eines Films oder Buches Ihrer Wahl (ca. 120 Wörter).",["meines erachtens","zugegebenermaßen","hingegen","insgesamt"]],
+["Formulieren Sie ein Plädoyer für lebenslanges Lernen (ca. 120 Wörter).",["unabdingbar","nicht zuletzt","folglich","plädiere"]],
+["Analysieren Sie Vor- und Nachteile der Globalisierung (ca. 120 Wörter).",["einerseits","andererseits","darüber hinaus","resümierend"]]];
+const P1=["Es lässt sich nicht leugnen, dass beide Seiten gute Argumente haben.","Ich würde sogar so weit gehen zu behaupten, dass sich die Lage verbessert hat.","Was mich allerdings stört, ist, dass die Kosten kaum berücksichtigt werden.","Im Grunde genommen kommt es auf die jeweilige Situation an."];
+const P2=["Dem ist entgegenzuhalten, dass sich die Verhältnisse grundlegend gewandelt haben.","Ich räume ein, dass dieser Einwand nicht ganz von der Hand zu weisen ist.","Gleichwohl bleibt fraglich, ob sich die Maßnahme langfristig bewähren wird.","Nicht zuletzt deshalb plädiere ich für einen differenzierteren Blick."];
+const E1=[["nach wie vor","toujours, encore aujourd'hui","immer noch"],["zur Rechenschaft ziehen","demander des comptes","verantwortlich machen"],["Hand in Hand gehen","aller de pair","zusammenhängen"],["einen Beitrag leisten","apporter sa contribution","helfen"]];
+const E2=[["etwas von der Hand weisen","rejeter quelque chose","ablehnen"],["ins Feld führen","avancer (un argument)","anführen"],["der Sache auf den Grund gehen","aller au fond des choses","genau untersuchen"],["zu Buche schlagen","peser dans le bilan","Kosten verursachen"]];
+const L=[L0,L1,L2],R=[R0,R1,R2],W=[W0,W1,W2],P=[P0,P1,P2],E=[E0,E1,E2];
+// Niveau selon les jours pratiqués : B2 (90 j), C1 (150 j), C2 (le reste) ; chaque 3e séance = défi du niveau suivant
+const nd=()=>Object.keys(S.days).length,tier=()=>nd()<90?0:nd()<240?1:2,tp=()=>tier()<2&&S.n%3==2?tier()+1:tier();
+
+// ---- Félicitations ----
+const M=["Bravo ma chérie {n} ! 🌹 Chaque mot que tu apprends me rend plus fier de toi. Tu brilles, continue ! 💖",
+"Tu es incroyable, {n} ! 🌸 Je t'aime un peu plus fort à chaque victoire. 💕",
+"Wow {n}, quelle progression ! 🌷 Ton allemand devient aussi beau que ton sourire. 😍",
+"Félicitations, ma chérie {n} 🌹 Je t'aime. Tu vas réussir cet examen, j'en suis sûr. 💪❤️",
+"Un pas de plus vers ton B2 réussi, {n} ! 🌺 Je crois en toi, toujours. 💞",
+"{n}, mon cœur, tu mérites toutes les victoires 💐 Continue, je suis avec toi ! 💗"];
+const MB=["Pas grave {n} 💗 chaque erreur te rapproche de la réussite. Je crois en toi, mon amour. 🌹","Courage ma chérie {n} 🌷 Tu apprends, et c'est ça le plus important. Je t'aime. 💕"];
+function cong(sc){const a=sc>=60?M:MB;let m=a[Math.floor(Math.random()*a.length)].replace('{n}',NAME);
+if(sc>=80)m+='<br>🎁 Bonus : un gros câlin t\'attend ! 🤗';
+return `<p class=love>${m}<br><br>— Mola, ton chéri 💋</p>`}
+
+// ---- Outils ----
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',7000)}
+function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=rate;speechSynthesis.speak(u)}catch(e){toast('Lecture audio indisponible sur ce navigateur.')}}
+function play(t){say(t);if(rate<.75){S.slow++;if(S.slow>=3)toast('🐢 Vitesse trop lente : ce n\'est pas idéal pour toi. À l\'examen, les gens parlent vite. Accélère un peu (0.9 ou 1) pour t\'habituer !')}else S.slow=0;save()}
+function chart(){let h='';for(let i=6;i>=0;i--){const v=(S.days[dk(i)]||{}).score||0;h+=`<div class=bc><small>${v||'–'}</small><div class=bar style="height:${v}px"></div><small>${'DLMMJVS'[new Date(Date.now()-i*864e5).getDay()]}</small></div>`}
+return `<div class=card><h2>📈 Ma progression (score par jour)</h2><div class=ch>${h}</div></div>`}
+function streak(){let s=0;for(let i=0;i<365;i++){if(S.days[dk(i)])s++;else if(i)break}return s}
+
+// ---- Accueil ----
+function home(){const d=S.days[dk(0)];
+app.innerHTML=`<h1>Bonjour ${NAME} ! 🌹</h1><div class=top><span>🔥 ${streak()} jour(s) de suite</span><span>⏱ ${d?d.min:0} / 60 min</span></div>
+<div class=card><h2>${d?'✅ Journée validée, bravo !':'Ta séance du jour t\'attend'}</h2><p>Niveau actuel : <b>${['B2','C1','C2'][tier()]}</b> · mois ${Math.min(12,Math.floor(nd()/30)+1)}/12. Objectif : 1 heure par jour. 5 ateliers : écoute, lecture, écriture, oral et expressions.</p>
+<button class=btn id=go>${d?'Continuer une autre séance ▶':'Commencer la séance ▶'}</button><details style="margin-top:12px"><summary>📅 Programme sur 12 mois</summary><p class=tx>Mois 1 à 3 : B2 solide (consolidation).<br>Mois 4 à 8 : C1 (textes plus longs, argumentation).<br>Mois 9 à 12 : C2 (nuances, registre soutenu, expressions idiomatiques).<br>Une séance sur trois propose un défi du niveau supérieur.</p></details></div>${chart()}`;
+document.getElementById('go').onclick=start}
+
+// ---- Séance ----
+function start(){ses={errs:[],sc:[],t0:Date.now()};const st=[];
+if(S.err&&S.err.length)st.push(warm);
+st.push(f=>quiz(0,f),f=>quiz(1,f),writing,speaking,expr);ses.steps=st;run(0)}
+function run(i){if(i>=ses.steps.length)return end();ses.steps[i](sc=>{if(sc!==null)ses.sc.push(sc);run(i+1)})}
+function res(title,sc,nx){app.innerHTML=`<div class=card><h2>${title}</h2><div class=big>${sc}%</div>${cong(sc)}<button class=btn id=nx>Suivant ▶</button></div>`;document.getElementById('nx').onclick=nx}
+function warm(f){app.innerHTML=`<div class=card><h2>🔁 Échauffement : à revoir d'hier</h2>${S.err.map(e=>`<div class=tx>${e}</div>`).join('')}<button class=btn id=nx>J'ai relu, on y va ▶</button></div>`;document.getElementById('nx').onclick=()=>f(null)}
+
+function quiz(hear,f){const A=(hear?L:R)[tp()],n=A.length,items=[A[(2*S.n)%n],A[(2*S.n+1)%n]];let i=0,sc=0;
+(function show(){const[t,q,o,a]=items[i];
+app.innerHTML=`<div class=card><h2>${hear?'🎧 Écoute':'📖 Lecture'} · ${i+1}/2</h2>`+(hear?`<button class="btn s" id=pl>▶ Écouter l'audio</button><p style="margin-top:10px">Vitesse : <b id=rv>${rate}</b>x</p><input type=range id=rg min=.5 max=1.3 step=.1 value=${rate}>`:`<p class=tx>${t}</p>`)+`<p style="margin:12px 0;font-weight:700">${q}</p><div id=os>${o.map((x,k)=>`<button class=opt data-k=${k}>${x}</button>`).join('')}</div><div id=fb></div></div>`;
+if(hear){document.getElementById('pl').onclick=()=>play(t);document.getElementById('rg').oninput=e=>{rate=+e.target.value;S.rate=rate;document.getElementById('rv').textContent=rate;save()}}
+document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;document.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+document.querySelectorAll('.opt')[a].classList.add('ok');
+if(k===a)sc+=100;else{b.classList.add('ko');ses.errs.push(`${hear?'Écoute':'Lecture'} : « ${q} » → ${o[a]}`)}
+document.getElementById('fb').innerHTML=`<p class=tx>${t}</p><button class=btn id=nx>Suivant ▶</button>`;
+document.getElementById('nx').onclick=()=>{i++;if(i<2)show();else{const s=Math.round(sc/2);res(hear?'🎧 Écoute terminée':'📖 Lecture terminée',s,()=>f(s))}}})})()}
+
+function writing(f){const q=W[tp()],[p,k]=q[S.n%q.length],tg=[60,90,120][tp()];
+app.innerHTML=`<div class=card><h2>✍️ Écriture</h2><p>${p}</p><p class=tx>Mots allemands à utiliser : ${k.join(' · ')}</p><textarea id=ta placeholder="Schreibe hier auf Deutsch…"></textarea><button class=btn id=ck>Vérifier mon texte</button><div id=fb></div></div>`;
+document.getElementById('ck').onclick=()=>{const t=document.getElementById('ta').value,lw=t.toLowerCase(),w=t.trim().split(/\s+/).filter(Boolean).length;
+const miss=k.filter(x=>!lw.includes(x)),sc=Math.min(50,Math.round(w/tg*50))+Math.round((k.length-miss.length)/k.length*50);
+miss.forEach(m=>ses.errs.push(`Écriture : expression oubliée « ${m} »`));
+document.getElementById('fb').innerHTML=`<p class=tx>${w} mots. ${miss.length?'À ajouter la prochaine fois : '+miss.join(', '):'Toutes les expressions sont utilisées, bravo !'}</p><button class=btn id=nx>Suivant ▶</button>`;
+document.getElementById('nx').onclick=()=>res('✍️ Écriture terminée',sc,()=>f(sc))}}
+
+function speaking(f){const SR=window.SpeechRecognition||window.webkitSpeechRecognition,Q=P[tp()],items=[Q[(2*S.n)%Q.length],Q[(2*S.n+1)%Q.length]];let i=0,tot=0;
+const nrm=s=>s.toLowerCase().replace(/[.,!?]/g,'').split(/\s+/).filter(Boolean);
+(function show(){const p=items[i];
+app.innerHTML=`<div class=card><h2>🗣️ Expression orale · ${i+1}/2</h2><p class=tx style="font-size:19px">${p}</p><button class="btn s" id=pl>▶ Écouter la phrase</button><button class=btn id=mic>${SR?'🎤 Répéter à voix haute':'✅ Je l\'ai dite à voix haute'}</button><div id=fb></div></div>`;
+document.getElementById('pl').onclick=()=>play(p);
+function done(sc,miss){tot+=sc;miss.forEach(m=>ses.errs.push(`Oral : mot à répéter « ${m} »`));
+document.getElementById('fb').innerHTML=`<p class=tx>Score : ${sc}%${miss.length?'. Mots à retravailler : '+miss.join(', ')+'. Écoute puis réessaie !':' 👏'}</p><button class=btn id=nx>Suivant ▶</button>`;
+document.getElementById('nx').onclick=()=>{i++;if(i<2)show();else{const s=Math.round(tot/2);res('🗣️ Expression orale terminée',s,()=>f(s))}}}
+document.getElementById('mic').onclick=()=>{if(!SR)return done(80,[]);
+const r=new SR();r.lang='de-DE';r.onresult=e=>{const sp=nrm(e.results[0][0].transcript),w=nrm(p),miss=w.filter(x=>!sp.includes(x));done(Math.round((w.length-miss.length)/w.length*100),miss)};
+r.onerror=()=>{document.getElementById('fb').innerHTML='<p class=tx>Micro non détecté. Autorise le micro puis réessaie.</p>'};r.start()}})()}
+
+function expr(f){const X=E[tp()],a=X[(2*S.n)%X.length],b=X[(2*S.n+1)%X.length];
+app.innerHTML=`<div class=card><h2>💡 Expressions du jour</h2>${[a,b].map(e=>`<div class=tx><b>${e[0]}</b><br>= ${e[1]}<br>Plus simple : <b>${e[2]}</b></div>`).join('')}<button class="btn s" id=pl>🔊 Écouter et répéter</button><p class=tx>${T[S.n%3]}</p><button class=btn id=nx>Terminer la séance ▶</button></div>`;
+document.getElementById('pl').onclick=()=>play(a[0]+'. '+b[0]);document.getElementById('nx').onclick=()=>f(null)}
+
+function end(){const sc=ses.sc.length?Math.round(ses.sc.reduce((x,y)=>x+y,0)/ses.sc.length):0,min=Math.max(1,Math.round((Date.now()-ses.t0)/60000)),k=dk(0),o=S.days[k]||{score:0,min:0,ses:0};
+S.days[k]={score:Math.round((o.score*o.ses+sc)/(o.ses+1)),min:o.min+min,ses:o.ses+1};S.n++;S.err=ses.errs.slice(0,6);save();
+app.innerHTML=`<div class=card><h2>🎉 Séance terminée</h2><div class=big>${sc}%</div>${cong(sc)}<h2>Mes erreurs à retenir</h2>${ses.errs.length?ses.errs.map(e=>`<div class=tx>${e}</div>`).join(''):'<p>Aucune erreur, parfait ! 🌟</p>'}<button class=btn id=more>Continuer une autre séance ▶</button><button class="btn s" id=hm>Retour à l'accueil</button></div>${chart()}`;
+document.getElementById('more').onclick=start;document.getElementById('hm').onclick=home}
+home();
+</script></body></html>
