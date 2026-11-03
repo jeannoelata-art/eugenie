@@ -162,15 +162,70 @@ const C=[
 ["Er ist nicht gekommen, vermutlich hat er den Zug verpasst.","Während der eine spart, gibt der andere viel Geld aus."]]];
 const START='2026-11-02',PD=()=>Math.max(1,Math.min(18,Math.floor((new Date(dk(0))-new Date(START))/864e5)+1)),ST=()=>(S.days[dk(0)]||{ses:0}).ses,CH=()=>((PD()-1)*3+ST())%12,PH=d=>d<=4?'Découverte (1er passage)':d<=8?'Consolidation (2e passage)':d<=12?'Maîtrise (3e passage)':d<=16?"Simulation d'examen":d==17?'Points faibles':'Révision légère',LEFT=()=>Math.ceil((new Date('2026-11-20T09:00:00')-Date.now())/864e5);
 function lesson(f){const c=C[CH()];app.innerHTML=`<div class=card><h2>🧑‍🏫 Cours : chapitre ${CH()+1} · ${c[0]}</h2><p>Aujourd'hui : <b>${c[1]}</b></p><p class=tx>${c[2]}</p><p class=tx><b>Exemple :</b> ${c[3]}</p><button class="btn s" id=pl>🔊 Écouter l'exemple</button><button class=btn id=nx>J'ai compris, on s'entraîne ▶</button></div>`;document.getElementById('pl').onclick=()=>play(c[3]);document.getElementById('nx').onclick=()=>f(null)}
-function gram(f){const it=C[CH()].slice(4,6);let i=0,sc=0;(function show(){const[q,o,a,why]=it[i];
-app.innerHTML=`<div class=card><h2>🧩 Grammaire · ${i+1}/2</h2><p style="font-weight:700;margin:8px 0">${q}</p>${o.map((x,k)=>`<button class=opt data-k=${k}>${x}</button>`).join('')}<div id=fb></div></div>`;
-document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;document.querySelectorAll('.opt').forEach(x=>x.disabled=true);document.querySelectorAll('.opt')[a].classList.add('ok');
+function gram(f,m){const it=m==2?[G2[CH()]]:m==1?[G1[CH()]]:[...C[CH()].slice(4,6),G3[CH()]],n=it.length;let i=0,sc=0;(function show(){const[q,o,a,why]=it[i];
+app.innerHTML=`<div class=card><h2>${m==2?'🚀 Défi C2 · ':m==1?'🔼 Défi C1 · ':'🧩 '}Grammaire · ${i+1}/${n}</h2><p style="font-weight:700;margin:8px 0">${q}</p>${sh(o).map(([x,k])=>`<button class=opt data-k=${k}>${x}</button>`).join('')}<div id=fb></div></div>`;
+document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;document.querySelectorAll('.opt').forEach(x=>x.disabled=true);[...document.querySelectorAll('.opt')].find(x=>+x.dataset.k===a).classList.add('ok');
 if(k===a)sc+=100;else{b.classList.add('ko');ses.errs.push(`Grammaire : « ${q} » → ${o[a]} (${why})`)}
 document.getElementById('fb').innerHTML=`<p class=tx>🧑‍🏫 ${k===a?'Bravo ! ':'Pas grave, on comprend ensemble. '}${why}</p><button class=btn id=nx>Suivant ▶</button>`;
-document.getElementById('nx').onclick=()=>{i++;if(i<2)show();else{const r=Math.round(sc/2);res('🧩 Grammaire terminée',r,()=>f(r))}}})})()}
+document.getElementById('nx').onclick=()=>{i++;if(i<n)show();else{const r=Math.round(sc/n);res(m?(m==2?'🚀':'🔼')+' Défi C'+m+' terminé':'🧩 Grammaire terminée',r,()=>f(r))}}})})()}
+L2.push(["Angesichts der angespannten Haushaltslage sieht sich die Gemeinde gezwungen, freiwillige Leistungen zu kürzen, wovon insbesondere Kultureinrichtungen betroffen wären.","Wer wäre von den Kürzungen vor allem betroffen ?",["Die Schulen","Die Kultureinrichtungen","Die Verkehrsbetriebe","Die Feuerwehr"],1],
+["Es wäre verfehlt, den Erfolg allein auf das Marketing zurückzuführen; vielmehr habe das Zusammenspiel mehrerer Faktoren den Ausschlag gegeben.","Was wird betont ?",["Das Marketing allein war entscheidend","Der Erfolg war reiner Zufall","Der Preis war ausschlaggebend","Mehrere Faktoren wirkten zusammen"],3],
+["Kaum hatte der Redner geendet, brach im Saal ein Applaus los, der erst nach mehreren Minuten abebbte.","Wie reagierte das Publikum ?",["Es verließ den Saal","Es klatschte lange","Es blieb still","Es stellte Fragen"],1],
+["Sofern keine Einwände vorliegen, gilt der Vorschlag als angenommen; wer widersprechen möchte, muss dies bis Freitag schriftlich tun.","Was gilt, wenn niemand widerspricht ?",["Der Vorschlag ist abgelehnt","Es wird neu abgestimmt","Der Vorschlag gilt als angenommen","Die Frist wird verlängert"],2]);
+R2.push(["Nicht zuletzt aufgrund der demografischen Entwicklung dürfte der Fachkräftemangel in den kommenden Jahren weiter zunehmen.","Aussage : Der Fachkräftemangel wird voraussichtlich wachsen.",RO,0],
+["Die Autorin vertritt die These, Sprache präge das Denken, räumt aber ein, dass der empirische Nachweis bislang umstritten sei.","Aussage : Der Nachweis der These ist laut Text unumstritten.",RO,1],
+["Während die Opposition den Entwurf als halbherzig bezeichnete, lobte ihn der Koalitionspartner als ersten Schritt in die richtige Richtung.","Aussage : Die Opposition hält den Entwurf für unzureichend.",RO,0],
+["Das Gutachten kommt zu dem Schluss, dass die Kosten zwar steigen, der Nutzen aber überwiegen dürfte; über die Finanzierung schweigt es sich aus.","Aussage : Das Gutachten empfiehlt eine Steuererhöhung.",RO,2]);
+E2.push(["geschweige denn","et encore moins","und erst recht nicht"],["nichtsdestotrotz","néanmoins","trotzdem"],["gang und gäbe sein","être courant","üblich sein"],["auf der Hand liegen","être évident","klar sein"]);
+L0.push(["Der Zug nach München fällt heute wegen eines technischen Defekts aus. Reisende werden gebeten, den Bus am Bahnhofsplatz zu nehmen.","Was sollen die Reisenden tun ?",["Auf den nächsten Zug warten","Den Bus nehmen","Ein Taxi bestellen"],1],
+["Im Kurs wird nächste Woche eine Prüfung geschrieben. Wer krank ist, muss ein ärztliches Attest vorlegen.","Was müssen kranke Teilnehmer tun ?",["Ein Attest vorlegen","Die Prüfung bezahlen","Den Kurs verlassen"],0],
+["Die Firma sucht ab Januar neue Mitarbeiter im Kundenservice. Erfahrung ist von Vorteil, aber nicht erforderlich.","Was gilt für die Bewerber ?",["Erfahrung ist Pflicht","Erfahrung ist nicht nötig","Nur Studenten dürfen sich bewerben"],1],
+["Wegen des starken Regens wird das Fest vom Samstag auf den Sonntag verschoben.","Wann findet das Fest statt ?",["Am Samstag","Am Sonntag","Gar nicht"],1]);
+R0.push(["Viele Menschen lernen heute Sprachen mit Apps, weil das flexibel und günstig ist. Ein Nachteil ist, dass man selten mit echten Menschen spricht.","Aussage : Apps haben den Vorteil, dass man viel mit Muttersprachlern spricht.",["Richtig","Falsch"],1],
+["Nach dem Umzug in die Großstadt musste sie sich an die hohen Mieten gewöhnen, doch sie fand schnell eine kleine Wohnung.","Aussage : Sie fand schnell eine Wohnung.",["Richtig","Falsch"],0],
+["Die Bibliothek bietet kostenlose Kurse zum Thema Bewerbung an, die jedoch nur mit Anmeldung besucht werden können.","Aussage : Man kann die Kurse ohne Anmeldung besuchen.",["Richtig","Falsch"],1],
+["Fachleute raten, vor wichtigen Prüfungen ausreichend zu schlafen, weil Müdigkeit die Konzentration verringert.","Aussage : Ausreichend Schlaf hilft bei der Konzentration.",["Richtig","Falsch"],0]);
+E1.push(["ins Auge fassen","envisager","planen"],["in Erwägung ziehen","considérer","bedenken"],["zur Verfügung stehen","être disponible","bereitstehen"],["Rücksicht nehmen auf","tenir compte de","beachten"]);
+const G1=[["Ich konnte nicht kommen, ___ mir etwas dazwischengekommen war.",["da","ob","damit"],0,"« da » = puisque (cause connue, plus formel que weil)."],
+["Ich möchte mich ___ die Stelle bewerben.",["um","für","auf"],0,"sich bewerben um + Akk. (À apprendre avec le verbe)."],
+["Das ___ Problem muss schnell gelöst werden.",["bestehende","bestandene","bestehen"],0,"Partizip I : das bestehende Problem = le problème existant."],
+["Er tat so, ___ er schliefe.",["als ob","damit","sodass"],0,"als ob + Konjunktiv II = comme s'il dormait."],
+["Der Vertrag ___ gestern unterschrieben worden.",["ist","wurde","hat"],0,"Parfait passif : ist + Partizip II + worden."],
+["Hätte er früher ___, wäre alles anders gekommen.",["reagiert","reagieren","reagierte"],0,"Hätte er + Partizip II : irréel du passé sans « wenn »."],
+["Das Ergebnis ist ___ Meinung nach überraschend.",["meiner","mein","mir"],0,"Locution fixe : meiner Meinung nach (datif)."],
+["Er interessiert sich ___ Politik.",["für","an","auf"],0,"sich interessieren für + Akk."],
+["Das Projekt scheiterte ___ fehlender Finanzierung.",["aufgrund","trotz","dank"],0,"aufgrund + génitif = en raison de (cause, formel)."],
+["Das Buch, ___ Autor ich kenne, ist neu.",["dessen","deren","dem"],0,"dessen = dont (génitif) : le livre dont je connais l'auteur."],
+["Sie sagte, sie ___ müde.",["sei","wäre","ist"],0,"sei = Konjunktiv I de sein (discours indirect)."],
+["Er ist ___ krank.",["vermutlich","vermuten","Vermutung"],0,"vermutlich = probablement (adverbe)."]];
+const G2=[["Statt « Obwohl er krank war » : « ___ seiner Krankheit kam er ».",["Trotz","Wegen","Dank"],0,"Style nominal (C2) : obwohl + phrase = trotz + génitif."],
+["___ Sie Fragen haben, melden Sie sich bitte.",["Sollten","Würden","Wären"],0,"Condition sans « wenn » (formel, C2) : Sollten Sie … = si vous aviez …"],
+["Die von der Stadt ___ Maßnahmen zeigen Wirkung.",["eingeleiteten","einleitenden","einzuleiten"],0,"Participe étendu (C2) : les mesures que la ville a lancées."],
+["___ ich das gewusst, hätte ich anders entschieden.",["Hätte","Würde","Wäre"],0,"Irréel du passé sans « wenn » : on inverse. Hätte ich … = si j'avais su …"],
+["Die Anlage ___ sich leicht bedienen.",["lässt","lasst","ließ"],0,"sich lassen + infinitif = pouvoir être fait (se laisse utiliser facilement)."],
+["« On dit qu'il était malade » : Er soll gestern krank ___.",["gewesen sein","sein gewesen","war sein"],0,"sollen + infinitif passé = on dit que (rapporter une rumeur)."],
+["Wir ziehen das Angebot in ___.",["Betracht","Frage","Sicht"],0,"in Betracht ziehen = envisager. (in Frage stellen = remettre en question)."],
+["Es kommt ___ die Umstände an.",["auf","von","für"],0,"ankommen auf + Akk. = dépendre de."],
+["Es ist unbestritten, ___ die Preise gestiegen sind.",["dass","ob","wenn"],0,"dass = que (fait certain) ; ob = si (doute)."],
+["Wem das Buch gefällt, ___ sollte es weiterempfehlen.",["der","den","dem"],0,"Après « wem… », on reprend avec le sujet : Wem … gefällt, der …"],
+["Sie behauptete, sie ___ nichts davon gewusst.",["habe","hätte","hat"],0,"Discours indirect (Konjunktiv I) : habe … gewusst."],
+["Er ___ den Zug verpasst haben.",["dürfte","darf","soll"],0,"dürfte + infinitif passé = probablement : il a sans doute raté le train."]];
+const G3=[["Ich habe ___ Zeit.",["keine","nicht","kein"],0,"« keine » devant un nom féminin : keine Zeit."],
+["Ich arbeite, ___ ich später reisen kann.",["damit","weil","obwohl"],0,"damit = pour que (but) ; weil = parce que."],
+["Er kam zu spät, ___ der Bus Verspätung hatte.",["weil","obwohl","damit"],0,"weil = parce que (cause)."],
+["Wenn ich du ___, würde ich gehen.",["wäre","bin","war"],0,"Conseil irréel : wenn ich du wäre."],
+["Das Fenster ___ von dem Kind geöffnet.",["wurde","hat","ist"],0,"Passif au passé : wurde + Partizip II. L'acteur s'introduit avec « von »."],
+["Ich hätte früher ___ sollen.",["gehen","gegangen","ging"],0,"Modal au Konjunktiv II passé : hätte + infinitif + sollen."],
+["Ich denke ___ meine Familie.",["an","auf","über"],0,"denken an + Akk. = penser à."],
+["Sie ist größer ___ ich.",["als","wie","denn"],0,"Comparatif → als. Égalité → so … wie."],
+["Er ist nicht reich, ___ glücklich.",["sondern","aber","denn"],0,"sondern = mais (après une négation)."],
+["Das ist der Mann, ___ ich geholfen habe.",["dem","den","der"],0,"helfen + datif → dem."],
+["Er fragte, ___ ich Zeit hätte.",["ob","dass","wenn"],0,"Question indirecte sans mot interrogatif → ob."],
+["Es ___ sein, dass er krank ist.",["kann","darf","will"],0,"kann sein = c'est possible (supposition)."]];
+const sh=o=>o.map((x,k)=>[x,k]).sort(()=>o[0]=='Richtig'?0:Math.random()-.5);
 const L=[L0,L1,L2],R=[R0,R1,R2],W=[W0,W1,W2],P=[P0,P1,P2],E=[E0,E1,E2];
 // Niveau selon les jours pratiqués : B2 (90 j), C1 (150 j), C2 (le reste) ; chaque 3e séance = défi du niveau suivant
-const nd=()=>Object.keys(S.days).length,stg=()=>0,tp=()=>S.n%3==2?1:0;
+const nd=()=>Object.keys(S.days).length,stg=()=>0,tp=()=>0;
 
 // ---- Félicitations ----
 const M=["Bravo ma chérie {n} ! 🌹 Chaque mot que tu apprends me rend plus fier de toi. Tu brilles, continue ! 💖",
@@ -196,30 +251,30 @@ function streak(){let s=0;for(let i=0;i<365;i++){if(S.days[dk(i)])s++;else if(i)
 function home(){const d=S.days[dk(0)],ok=d&&d.ses>=3;
 app.innerHTML=`<h1>Bonjour ${NAME} ! 🌹</h1><div class=top><span>🔥 ${streak()} jour(s) de suite</span><span>⏱ ${d?d.min:0} / 180 min</span></div>
 <div class=card><h2>📅 Examen le 20 novembre : ${LEFT()>0?'J-'+LEFT():'jour J, bonne chance !'}</h2><p>${LEFT()>0&&LEFT()<=3?'Dernière ligne droite : refais tes erreurs et reste calme.':'Un chapitre de ton livre par séance, avec cours, exercices et explications.'}</p></div><div class=card><h2>${ok?'✅ Journée validée (3 blocs), bravo !':'Bloc '+Math.min(ST()+1,3)+' / 3 de ta journée'}</h2><p>Jour ${PD()}/18 · phase <b>${PH(PD())}</b>.<br>Prochain chapitre : <b>${CH()+1}. ${C[CH()][0]}</b>. Objectif : 3 blocs d'1 heure par jour. 5 ateliers : écoute, lecture, écriture, oral et expressions.</p>
-<button class=btn id=go>${ok?'Bloc bonus ▶':'Commencer le bloc '+Math.min(ST()+1,3)+' ▶'}</button><button class="btn s" id=pg>📋 Voir le programme complet</button><details style="margin-top:12px"><summary>📅 Mon programme</summary><p class=tx>Chaque bloc suit un chapitre de ton livre (12 chapitres, vus 3 fois avant l'examen).<br>1) Cours 2) Grammaire 3) Écoute 4) Lecture 5) Écriture (2 fois) 6) Oral 7) Expressions.<br>Si tu te trompes, ton professeur t'explique et propose une version plus simple.</p></details></div>${chart()}`;
-document.getElementById('go').onclick=start;document.getElementById('pg').onclick=prog}
+<button class=btn id=go>${ok?'Bloc bonus ▶':'Commencer le bloc '+Math.min(ST()+1,3)+' ▶'}</button><button class="btn s" id=pg>📋 Voir le programme complet</button><button class="btn s" id=rp>📤 Envoyer mon bilan à Mola</button><details style="margin-top:12px"><summary>📅 Mon programme</summary><p class=tx>Chaque bloc suit un chapitre de ton livre (12 chapitres, vus 3 fois avant l'examen).<br>1) Cours 2) Grammaire 3) Écoute 4) Lecture 5) Écriture (2 fois) 6) Oral 7) Expressions <br>Matin : niveau B2. Après-midi : B2 + 🔼 défi C1. Soir : B2 + 🚀 défi C2.<br>Si tu te trompes, ton professeur t'explique et propose une version plus simple.</p></details></div>${chart()}`;
+document.getElementById('go').onclick=start;document.getElementById('pg').onclick=prog;document.getElementById('rp').onclick=report}
 
 // ---- Séance ----
 function start(){ses={errs:[],sc:[],t0:Date.now()};const st=[];
 if(S.err&&S.err.length)st.push(warm);
-st.push(lesson,gram,f=>quiz(1,f),f=>quiz(0,f),f=>writing(f,0),f=>writing(f,1),speaking,expr);ses.steps=st;run(0)}
+st.push(lesson,gram,f=>quiz(1,f),f=>quiz(0,f),f=>writing(f,0),f=>writing(f,1),speaking,expr);const t=ST();if(t==1)st.push(f=>gram(f,1),f=>quiz(1,f,1),f=>quiz(0,f,1),f=>writing(f,3),f=>expr(f,1));if(t>=2)st.push(f=>gram(f,2),f=>quiz(1,f,2),f=>quiz(0,f,2),f=>writing(f,2),f=>expr(f,2));ses.steps=st;run(0)}
 function run(i){if(i>=ses.steps.length)return end();ses.steps[i](sc=>{if(sc!==null)ses.sc.push(sc);run(i+1)})}
 function res(title,sc,nx){app.innerHTML=`<div class=card><h2>${title}</h2><div class=big>${sc}%</div>${cong(sc)}<button class=btn id=nx>Suivant ▶</button></div>`;document.getElementById('nx').onclick=nx}
 function warm(f){app.innerHTML=`<div class=card><h2>🔁 Échauffement : à revoir d'hier</h2>${S.err.map(e=>`<div class=tx>${e}</div>`).join('')}<button class=btn id=nx>J'ai relu, on y va ▶</button></div>`;document.getElementById('nx').onclick=()=>f(null)}
 
-function quiz(hear,f){const A=(hear?L:R)[tp()],n=A.length,items=[A[(2*S.n)%n],A[(2*S.n+1)%n]];let i=0,sc=0;
+function quiz(hear,f,tr){const A=(hear?L:R)[tr===undefined?tp():tr],n=A.length,items=[A[(2*S.n)%n],A[(2*S.n+1)%n]];let i=0,sc=0;
 (function show(){const[t,q,o,a]=items[i];
-app.innerHTML=`<div class=card><h2>${hear?'🎧 Écoute':'📖 Lecture'} · ${i+1}/2</h2>`+(hear?`<button class="btn s" id=pl>▶ Écouter l'audio</button><p style="margin-top:10px">Vitesse : <b id=rv>${rate}</b>x</p><input type=range id=rg min=.5 max=1.3 step=.1 value=${rate}>`:`<p class=tx>${t}</p>`)+`<p style="margin:12px 0;font-weight:700">${q}</p><div id=os>${o.map((x,k)=>`<button class=opt data-k=${k}>${x}</button>`).join('')}</div><button class="btn s" id=hp>❓ Je n'ai pas compris</button><div id=fb></div></div>`;
+app.innerHTML=`<div class=card><h2>${tr==2?'🚀 C2 · ':tr==1?'🔼 C1 · ':''}${hear?'🎧 Écoute':'📖 Lecture'} · ${i+1}/2</h2>`+(hear?`<button class="btn s" id=pl>▶ Écouter l'audio</button><p style="margin-top:10px">Vitesse : <b id=rv>${rate}</b>x</p><input type=range id=rg min=.5 max=1.3 step=.1 value=${rate}>`:`<p class=tx>${t}</p>`)+`<p style="margin:12px 0;font-weight:700">${q}</p><div id=os>${sh(o).map(([x,k])=>`<button class=opt data-k=${k}>${x}</button>`).join('')}</div><button class="btn s" id=hp>❓ Je n'ai pas compris</button><div id=fb></div></div>`;
 if(hear){let pc=0;const pe=document.getElementById('pl');pe.onclick=()=>{if(pc>=2)return toast('Comme à l\'examen : 2 écoutes maximum.');pc++;pe.textContent='▶ Réécouter ('+(2-pc)+' restante(s))';play(t)};document.getElementById('rg').oninput=e=>{rate=+e.target.value;S.rate=rate;document.getElementById('rv').textContent=rate;save()}}
 document.getElementById('hp').onclick=()=>{if(hear)say(t);document.getElementById('fb').innerHTML='<p class=tx>🧑‍🏫 '+(hear?'Je lis plus lentement. Écoute sans lire : qui parle ? de quoi ? Les chiffres et les jours sont souvent la clé.':'Lis la question, puis cherche son mot-clé dans le texte. Ignore les mots inconnus : le sens général suffit souvent.')+'</p>'};
 document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;document.querySelectorAll('.opt').forEach(x=>x.disabled=true);
-document.querySelectorAll('.opt')[a].classList.add('ok');
+[...document.querySelectorAll('.opt')].find(x=>+x.dataset.k===a).classList.add('ok');
 if(k===a)sc+=100;else{b.classList.add('ko');ses.errs.push(`${hear?'Écoute':'Lecture'} : « ${q} » → ${o[a]}`)}
 document.getElementById('fb').innerHTML=`<p class=tx>🧑‍🏫 ${k===a?'Bien joué !':'Pas grave ! La bonne réponse est « '+o[a]+' ». '+(hear?'Relis la transcription et repère la phrase clé.':'La réponse est dans la phrase qui contient le mot-clé de la question.')}</p><p class=tx>${t}</p><button class=btn id=nx>Suivant ▶</button>`;
 document.getElementById('nx').onclick=()=>{i++;if(i<2)show();else{const s=Math.round(sc/2);res(hear?'🎧 Écoute terminée':'📖 Lecture terminée',s,()=>f(s))}}})})()}
 
-function writing(f,o=0){const[p,k0]=o?W0[S.n%4]:C[CH()][6],k=k0.map(x=>Array.isArray(x)?x[0]:x),tg=150;
-app.innerHTML=`<div class=card><h2>✍️ Écriture</h2><p>${p}</p><p class=tx>Mots allemands à utiliser : ${k0.map(x=>Array.isArray(x)?x[0]+' ('+x[1]+')':x).join(' · ')}</p><textarea id=ta placeholder="Schreibe hier auf Deutsch…"></textarea><button class=btn id=ck>Vérifier mon texte</button><div id=fb></div></div>`;
+function writing(f,o=0){const[p,k0]=o==3?W1[S.n%W1.length]:o==2?W2[S.n%W2.length]:o?W0[S.n%4]:C[CH()][6],k=k0.map(x=>Array.isArray(x)?x[0]:x),tg=o==2?200:o==3?170:150;
+app.innerHTML=`<div class=card><h2>✍️ Écriture${o==2?' · 🚀 défi C2':o==3?' · 🔼 défi C1':''}</h2><p>${p}</p><p class=tx>Mots allemands à utiliser : ${k0.map(x=>Array.isArray(x)?x[0]+' ('+x[1]+')':x).join(' · ')}</p><textarea id=ta placeholder="Schreibe hier auf Deutsch…"></textarea><button class=btn id=ck>Vérifier mon texte</button><div id=fb></div></div>`;
 document.getElementById('ck').onclick=()=>{const t=document.getElementById('ta').value,lw=t.toLowerCase(),w=t.trim().split(/\s+/).filter(Boolean).length;
 const miss=k.filter(x=>!lw.includes(x)),sc=Math.min(50,Math.round(w/tg*50))+Math.round((k.length-miss.length)/k.length*50);
 miss.forEach(m=>ses.errs.push(`Écriture : expression oubliée « ${m} »`));
@@ -238,16 +293,17 @@ document.getElementById('mic').onclick=()=>{if(!SR)return done(80,[]);
 const r=new SR();r.lang='de-DE';r.onresult=e=>{const sp=nrm(e.results[0][0].transcript),w=nrm(p),miss=w.filter(x=>!sp.includes(x));done(Math.round((w.length-miss.length)/w.length*100),miss)};
 r.onerror=()=>{document.getElementById('fb').innerHTML='<p class=tx>Micro non détecté. Autorise le micro puis réessaie.</p>'};r.start()}})()}
 
-function expr(f){const X=E[tp()],a=X[(2*S.n)%X.length],b=X[(2*S.n+1)%X.length];
-app.innerHTML=`<div class=card><h2>💡 Expressions du jour</h2>${[a,b].map(e=>`<div class=tx><b>${e[0]}</b><br>= ${e[1]}<br>Plus simple : <b>${e[2]}</b></div>`).join('')}<button class="btn s" id=pl>🔊 Écouter et répéter</button><p class=tx>${T[S.n%3]}</p><button class=btn id=nx>Terminer la séance ▶</button></div>`;
+function expr(f,tr){const X=E[tr===undefined?tp():tr],a=X[(2*S.n)%X.length],b=X[(2*S.n+1)%X.length];
+app.innerHTML=`<div class=card><h2>${tr==2?'🚀 C2 · ':tr==1?'🔼 C1 · ':'💡 '}Expressions du jour</h2>${[a,b].map(e=>`<div class=tx><b>${e[0]}</b><br>= ${e[1]}<br>Plus simple : <b>${e[2]}</b></div>`).join('')}<button class="btn s" id=pl>🔊 Écouter et répéter</button><p class=tx>${T[S.n%3]}</p><button class=btn id=nx>Terminer la séance ▶</button></div>`;
 document.getElementById('pl').onclick=()=>play(a[0]+'. '+b[0]);document.getElementById('nx').onclick=()=>f(null)}
 
 function end(){const sc=ses.sc.length?Math.round(ses.sc.reduce((x,y)=>x+y,0)/ses.sc.length):0,min=Math.max(1,Math.round((Date.now()-ses.t0)/60000)),k=dk(0),o=S.days[k]||{score:0,min:0,ses:0};
 S.days[k]={score:Math.round((o.score*o.ses+sc)/(o.ses+1)),min:o.min+min,ses:o.ses+1};S.n++;S.err=ses.errs.slice(0,6);save();
-app.innerHTML=`<div class=card><h2>🎉 Séance terminée</h2><div class=big>${sc}%</div>${cong(sc)}<h2>Mes erreurs à retenir</h2>${ses.errs.length?ses.errs.map(e=>`<div class=tx>${e}</div>`).join(''):'<p>Aucune erreur, parfait ! 🌟</p>'}<button class=btn id=more>Passer au bloc suivant ▶</button><button class="btn s" id=hm>Retour à l'accueil</button></div>${chart()}`;
-document.getElementById('more').onclick=start;document.getElementById('hm').onclick=home}
+app.innerHTML=`<div class=card><h2>🎉 Séance terminée</h2><div class=big>${sc}%</div>${cong(sc)}<h2>Mes erreurs à retenir</h2>${ses.errs.length?ses.errs.map(e=>`<div class=tx>${e}</div>`).join(''):'<p>Aucune erreur, parfait ! 🌟</p>'}<button class=btn id=more>Passer au bloc suivant ▶</button><button class="btn s" id=rp>📤 Envoyer mon bilan à Mola</button><button class="btn s" id=hm>Retour à l'accueil</button></div>${chart()}`;
+document.getElementById('more').onclick=start;document.getElementById('hm').onclick=home;document.getElementById('rp').onclick=report}
+function report(){const d=S.days[dk(0)]||{ses:0,min:0,score:0};const t=encodeURIComponent(`📚 Bilan allemand de ${NAME}\nJour ${PD()}/18 · ${d.ses} bloc(s) terminé(s) aujourd'hui\n⏱ ${d.min} min · score moyen ${d.score}%\n🔥 Série : ${streak()} jour(s)\n🎓 Examen dans ${LEFT()} jour(s) 💪`);window.open('https://wa.me/?text='+t,'_blank')}
 function prog(){let h='';for(let d=1;d<=18;d++){const dt=new Date(new Date(START).getTime()+(d-1)*864e5),k=dt.toISOString().slice(0,10),dn=((S.days[k]||{}).ses||0)>=3,cs=[0,1,2].map(b=>((d-1)*3+b)%12+1).join(' · ');
 h+=`<div class=tx style="${d==PD()?'border:2px solid #ffd166':''}"><b>${dn?'✅':'⬜'} Jour ${d} · ${dt.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})}</b><br>${PH(d)}<br>Chapitres : ${cs}</div>`}
-app.innerHTML=`<h1>📋 Programme complet</h1><div class=card><p>3 blocs d'1 heure par jour : matin, après-midi, soir. Chaque bloc = un chapitre (cours, grammaire, écoute, lecture, écriture ×2, oral, expressions).</p>${h}<div class=tx><b>🎓 20 novembre : examen !</b></div><button class=btn id=bk>◀ Retour</button></div>`;document.getElementById('bk').onclick=home}
+app.innerHTML=`<h1>📋 Programme complet</h1><div class=card><p>3 blocs d'1 heure par jour : matin, après-midi, soir. Chaque bloc = un chapitre (cours, grammaire, écoute, lecture, écriture ×2, oral, expressions). Bloc 2 = + défi C1, bloc 3 = + défi C2.</p>${h}<div class=tx><b>🎓 20 novembre : examen !</b></div><button class=btn id=bk>◀ Retour</button></div>`;document.getElementById('bk').onclick=home}
 home();
 </script></body></html>
